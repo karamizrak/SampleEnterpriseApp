@@ -1,0 +1,51 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "AppDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "",
+   "OutputPath": null,
+   "ProjectRootNamespace": "SampleEntDev.Repository",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 1,
+   "Tables": [
+      {
+         "Name": "deneme.product",
+         "ObjectType": 0
+      },
+      {
+         "Name": "deneme.category",
+         "ObjectType": 0
+      },
+      {
+         "Name": "deneme.test",
+         "ObjectType": 0
+      },
+      {
+         "Name": "deneme.product_feature",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "NLayerDb",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": true,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": true,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": true,
+   "UseSchemaFolders": true,
+   "UseSpatial": false
+}
