@@ -18,9 +18,11 @@ namespace SampleEntDev.Repository.Repositories
             this.context = context;
             dbSet = context.Set<T>();   
         }
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await context.AddAsync(entity);
+            return entity;
+
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
@@ -40,7 +42,10 @@ namespace SampleEntDev.Repository.Repositories
             return await dbSet.FindAsync(id);
 #pragma warning restore CS8603 // Possible null reference return.
         }
-
+        public IQueryable<T> GetAll()
+        {
+            return  dbSet.AsNoTracking().AsQueryable();
+        }
         public void Remove(T entity)
         {
             //context.Entry(entity).State = EntityState.Deleted;
@@ -52,9 +57,10 @@ namespace SampleEntDev.Repository.Repositories
             dbSet.RemoveRange(entities);
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             dbSet.Update(entity);
+            return (T)entity;
         }
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)
@@ -66,5 +72,7 @@ namespace SampleEntDev.Repository.Repositories
         {
             return dbSet.AsNoTracking().Where(expression);
         }
+
+
     }
 }

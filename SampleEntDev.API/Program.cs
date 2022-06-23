@@ -6,6 +6,7 @@ using SampleEntDev.Core.IUnitOfWorks;
 using SampleEntDev.Repository.Repositories;
 using SampleEntDev.Core.Repositories;
 using SampleEntDev.Core.Services;
+using SampleEntDev.Service.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,8 @@ builder.Services.AddNpgsql<AppDbContext>(builder.Configuration.GetConnectionStri
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-//builder.Services.AddScoped(typeof(IService<>), typeof(SampleEntDev.Service.));
+builder.Services.AddScoped(typeof(IGenericService<>), typeof(SampleEntDev.Service.Services.GenericService<>));
+builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
 var app = builder.Build();

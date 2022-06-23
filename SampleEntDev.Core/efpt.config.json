@@ -7,26 +7,26 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Entities",
+   "OutputPath": "Entities\/Schemas",
    "ProjectRootNamespace": "SampleEntDev.Core",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "deneme.product",
+         "Name": "ecommerce.product",
          "ObjectType": 0
       },
       {
-         "Name": "deneme.category",
+         "Name": "ecommerce.category",
          "ObjectType": 0
       },
       {
-         "Name": "deneme.test",
+         "Name": "ecommerce.test",
          "ObjectType": 0
       },
       {
-         "Name": "deneme.product_feature",
+         "Name": "ecommerce.product_feature",
          "ObjectType": 0
       }
    ],
@@ -36,7 +36,7 @@
    "UseDbContextSplitting": true,
    "UseFluentApiOnly": false,
    "UseHandleBars": true,
-   "UseHierarchyId": true,
+   "UseHierarchyId": false,
    "UseInflector": false,
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": true,

@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace SampleEntDev.Core.Entities
+namespace SampleEntDev.Core.Entities.Schemas
 {
-    [Table("product_feature", Schema = "deneme")]
+    [Table("product_feature", Schema = "ecommerce")]
     public partial class ProductFeature
     {
         [Column("color")]

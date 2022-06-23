@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace SampleEntDev.Core.Entities
+namespace SampleEntDev.Core.Entities.Schemas
 {
-    [Table("product", Schema = "deneme")]
+    [Table("product", Schema = "ecommerce")]
     public partial class Product
     {
         [Column("created_date", TypeName = "timestamp without time zone")]

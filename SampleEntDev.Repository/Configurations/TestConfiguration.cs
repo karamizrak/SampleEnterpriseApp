@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SampleEntDev.Core.Entities;
+using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Repository;
 using System;
 using System.Collections.Generic;
