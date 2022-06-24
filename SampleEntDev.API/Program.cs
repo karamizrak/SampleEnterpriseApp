@@ -7,6 +7,7 @@ using SampleEntDev.Repository.Repositories;
 using SampleEntDev.Core.Repositories;
 using SampleEntDev.Core.Services;
 using SampleEntDev.Service.Mapping;
+using SampleEntDev.API.Filter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<TagByAreaNameOperationFilter>();
+});
+
 //builder.Services.AddDbContext<AppDbContext>(x =>
 //{
 //    x.UseNpgsql()
@@ -45,4 +50,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+
 app.Run();
+
