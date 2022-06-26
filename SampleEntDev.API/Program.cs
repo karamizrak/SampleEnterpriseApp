@@ -8,6 +8,10 @@ using SampleEntDev.Core.Repositories;
 using SampleEntDev.Core.Services;
 using SampleEntDev.Service.Mapping;
 using SampleEntDev.API.Filter;
+using SampleEntDev.Repository.Repositories.Schemas.ECommerce;
+using SampleEntDev.Core.Repositories.Schemas.ECommerce;
+using SampleEntDev.Core.Services.Schemas.ECommerce;
+using SampleEntDev.Service.Services.Schemas.ECommerce;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +38,12 @@ builder.Services.AddScoped(typeof(IGenericService<>), typeof(SampleEntDev.Servic
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
 var app = builder.Build();
 
 
@@ -49,7 +59,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();
