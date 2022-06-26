@@ -55,7 +55,6 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ProductDto pDto)
         {
-
             var p = await _productService.AddAsync(_mapper.Map<Product>(pDto));
             var savedProduct=_mapper.Map<ProductDto>(p);
             return CreateActionResult(GResponseDto<ProductDto>.Success(201, savedProduct));

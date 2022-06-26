@@ -12,9 +12,9 @@ namespace SampleEntDev.Core.Dtos.Schemas.ecommerce
         [Display(Name = "Name")]
         public string  Name { get; set; }
         [Display(Name = "Price")]
-        public int? Price { get; set; }
+        public int Price { get; set; }
         [Display(Name = "Stock")]
-        public int? Stock { get; set; }
+        public int Stock { get; set; }
         public int CategoryId { get; set; }
         
     }

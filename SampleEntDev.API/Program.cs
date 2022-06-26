@@ -12,12 +12,26 @@ using SampleEntDev.Repository.Repositories.Schemas.ECommerce;
 using SampleEntDev.Core.Repositories.Schemas.ECommerce;
 using SampleEntDev.Core.Services.Schemas.ECommerce;
 using SampleEntDev.Service.Services.Schemas.ECommerce;
+using FluentValidation.AspNetCore;
+using SampleEntDev.Service.Validations;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt=>
+{
+    opt.Filters.Add(new ValidateFilterAttribute());
+})
+    .AddFluentValidation(x=> x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
+
+//Fluent Validator ýn dönmüþ olduðu model filtresini kapatmak için
+builder.Services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.SuppressModelStateInvalidFilter = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

@@ -18,7 +18,17 @@ namespace SampleEntDev.Repository.Configurations
             entity.HasKey(e => e.ProductId)
                 .HasName("product_feature_pkey");
 
-            entity.Property(e => e.ProductId).ValueGeneratedNever();
+            entity.ToTable("product_feature", "ecommerce");
+
+            entity.Property(e => e.ProductId)
+                .ValueGeneratedNever()
+                .HasColumnName("product_id");
+
+            entity.Property(e => e.Color).HasColumnName("color");
+
+            entity.Property(e => e.Height).HasColumnName("height");
+
+            entity.Property(e => e.Width).HasColumnName("width");
 
             entity.HasOne(d => d.Product)
                 .WithOne(p => p.ProductFeature)

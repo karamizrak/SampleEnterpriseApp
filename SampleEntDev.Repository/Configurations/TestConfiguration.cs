@@ -15,7 +15,26 @@ namespace SampleEntDev.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<Test> entity)
         {
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.ToTable("test", "ecommerce");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+
+            entity.Property(e => e.Ad)
+                .HasColumnType("character varying")
+                .HasColumnName("ad");
+
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.Property(e => e.Soyad)
+                .HasColumnType("character varying")
+                .HasColumnName("soyad");
+
+            entity.Property(e => e.UpdatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_date");
 
             OnConfigurePartial(entity);
         }
