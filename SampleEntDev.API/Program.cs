@@ -15,6 +15,7 @@ using SampleEntDev.Service.Services.Schemas.ECommerce;
 using FluentValidation.AspNetCore;
 using SampleEntDev.Service.Validations;
 using Microsoft.AspNetCore.Mvc;
+using SampleEntDev.API.MiddleWares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,13 +70,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCustomException();
 
 app.UseAuthorization();
 
+
 app.MapControllers();
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();

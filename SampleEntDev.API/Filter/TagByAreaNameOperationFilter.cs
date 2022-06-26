@@ -16,7 +16,7 @@ namespace SampleEntDev.API.Filter
                     .Cast<AreaAttribute>().FirstOrDefault();
                 if (areaName != null)
                 {
-                    operation.Tags = new List<OpenApiTag> { new OpenApiTag { Name = areaName.RouteValue } };
+                    operation.Tags = new List<OpenApiTag> { new OpenApiTag { Name = $"{areaName.RouteValue}/{controllerActionDescriptor.ControllerName}" } };
                 }
                 else
                 {
