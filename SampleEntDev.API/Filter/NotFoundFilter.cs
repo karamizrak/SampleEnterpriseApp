@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SampleEntDev.Core;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Entities;
 using SampleEntDev.Core.Services;
 
 namespace SampleEntDev.API.Filter
 {
-    public class NotFoundFilter<T> : IAsyncActionFilter where T : class,IBaseEntity
+    public class NotFoundFilter<T> : IAsyncActionFilter where T : class, IEntity
     {
 
         private readonly IGenericService<T> _service;
