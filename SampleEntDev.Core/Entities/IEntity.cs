@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleEntDev.Core
+namespace SampleEntDev.Core.Entities
 {
-   
-    public interface IBaseEntity
+    public interface IEntity
     {
     }
 }
