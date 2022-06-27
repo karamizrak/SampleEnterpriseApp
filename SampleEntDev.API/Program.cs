@@ -16,6 +16,9 @@ using FluentValidation.AspNetCore;
 using SampleEntDev.Service.Validations;
 using Microsoft.AspNetCore.Mvc;
 using SampleEntDev.API.MiddleWares;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using SampleEntDev.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +38,7 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.OperationFilter<TagByAreaNameOperationFilter>();
@@ -47,17 +51,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddNpgsql<AppDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(SampleEntDev.Service.Services.GenericService<>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
-
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
 var app = builder.Build();
 
