@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
-    public partial class Category:BaseEntity
+    public partial class Category:IBaseEntity
     {
         public Category()
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
-    public partial class Product:BaseEntity
+    public partial class Product:IBaseEntity
     {
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }

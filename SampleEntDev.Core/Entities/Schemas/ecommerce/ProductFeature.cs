@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
-    public partial class ProductFeature:BaseEntity
+    public partial class ProductFeature:IBaseEntity
     {
         public string? Color { get; set; }
         public int? Height { get; set; }

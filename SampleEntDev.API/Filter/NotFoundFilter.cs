@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SampleEntDev.Core;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Entities;
 using SampleEntDev.Core.Services;
 
 namespace SampleEntDev.API.Filter
 {
-    public class NotFoundFilter<T> : IAsyncActionFilter where T : BaseEntity
+    public class NotFoundFilter<T> : IAsyncActionFilter where T : class,IBaseEntity
     {
 
         private readonly IGenericService<T> _service;
@@ -26,8 +27,8 @@ namespace SampleEntDev.API.Filter
             }
 
             var id = (int)idValue;
-            var hasEntity=await _service.AnyAsync(x=> x.Id==id);
-            if(hasEntity)
+            var hasEntity=await _service.GetByIdAsync(id);
+            if(hasEntity!=null)
             {
                 await next.Invoke();
                 return;
