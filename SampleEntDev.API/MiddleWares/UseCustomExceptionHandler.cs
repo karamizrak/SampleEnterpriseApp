@@ -18,6 +18,7 @@ namespace SampleEntDev.API.MiddleWares
                     var statusCode = exceptionFeature.Error switch
                     {
                         ClientSideException => 400,
+                        NotFoundException => 404,
                         _ => 500
                     };
                     contex.Response.StatusCode = statusCode;

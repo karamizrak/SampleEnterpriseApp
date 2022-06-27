@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SampleEntDev.API.Controllers;
+using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Dtos.Schemas.ecommerce;
 using SampleEntDev.Core.Entities.Schemas;
@@ -41,6 +42,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
@@ -66,7 +68,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             await _productService.UpdateAsync(_mapper.Map<Product>(pDto));
             return CreateActionResult(GResponseDto<NoContentDto>.Success(204));
         }
-
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveAsync(int id)

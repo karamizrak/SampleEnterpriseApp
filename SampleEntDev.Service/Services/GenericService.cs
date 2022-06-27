@@ -2,6 +2,7 @@
 using SampleEntDev.Core.IUnitOfWorks;
 using SampleEntDev.Core.Repositories;
 using SampleEntDev.Core.Services;
+using SampleEntDev.Service.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,12 @@ namespace SampleEntDev.Service.Services
         }
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var record= await _repository.GetByIdAsync(id);
+            if(record==null )
+            {
+                throw new NotFoundException($"{typeof(T).Name} ({id}) not found");
+            }
+            return record;
         }
 
         public async Task RemoveAsync(T entity)
