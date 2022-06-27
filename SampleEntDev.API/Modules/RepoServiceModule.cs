@@ -7,6 +7,8 @@ using System.Reflection;
 using SampleEntDev.Service.Services;
 using SampleEntDev.Core.Services;
 using SampleEntDev.Core.IUnitOfWorks;
+using SampleEntDev.Caching;
+using SampleEntDev.Core.Services.Schemas.ECommerce;
 
 namespace SampleEntDev.API.Modules
 {
@@ -30,6 +32,7 @@ namespace SampleEntDev.API.Modules
             //InstancePerDependency => AddTransient
 
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
         }
     }
 }

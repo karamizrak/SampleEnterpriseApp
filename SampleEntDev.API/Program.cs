@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.OperationFilter<TagByAreaNameOperationFilter>();
 });
-
+builder.Services.AddMemoryCache();
 //builder.Services.AddDbContext<AppDbContext>(x =>
 //{
 //    x.UseNpgsql()

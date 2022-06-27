@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SampleEntDev.Caching\SampleEntDev.Caching.csproj" />
     <ProjectReference Include="..\SampleEntDev.Service\SampleEntDev.Service.csproj" />
   </ItemGroup>
 
