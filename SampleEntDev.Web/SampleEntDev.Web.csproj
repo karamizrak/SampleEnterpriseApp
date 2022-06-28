@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SampleEntDev.Service\SampleEntDev.Service.csproj" />
+    <ProjectReference Include="..\SampleEntDev.Core\SampleEntDev.Core.csproj" />
   </ItemGroup>
 
 </Project>
