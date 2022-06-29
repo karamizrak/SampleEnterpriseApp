@@ -6,12 +6,29 @@ namespace SampleEntDev.API.Controllers
     [Route("api/[area]/[controller]")]
     [ApiController]
 
-    public class BaseController : Controller
+    public class BaseController<TDefaultModel> : ControllerBase where TDefaultModel : class
     {
         public BaseController()
         {
 
         }
+
+        
+        protected TDefaultModel DefaultData
+        {
+            get
+            {
+                var tmpModel = HttpContext?.Items.FirstOrDefault(x => ReferenceEquals(x.Key, "model"));
+                return tmpModel?.Value as TDefaultModel;
+                    
+                    //;
+            }
+            set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+            }
+        }
+
         [NonAction] //swagger bunu dışarı göstermemesi için
        public IActionResult CreateActionResult<T>(GResponseDto<T> response) where T : class
         {

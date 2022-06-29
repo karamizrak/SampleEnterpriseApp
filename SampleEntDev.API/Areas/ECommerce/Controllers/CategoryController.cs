@@ -5,13 +5,14 @@ using SampleEntDev.API.Controllers;
 using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.Services.Schemas.ECommerce;
 
 namespace SampleEntDev.API.Areas.ECommerce.Controllers
 {
     [Area("ECommerce")]
     //[ValidateFilter]
-    public class CategoryController : BaseController
+    public class CategoryController : BaseController<CategoryDto>
     {
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
@@ -34,6 +35,15 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         public async Task<IActionResult> GetSingleCategoryByIdWithProducts(int categoryId)
         {
             return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProductsAsnyc(categoryId));
+        }
+
+        [ServiceFilter(typeof(GetByIdFilter<Category,CategoryDto>))]
+        // GET api/<ProductController>/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            return await Task.FromResult(CreateActionResult(GResponseDto<CategoryDto>.Success(200, DefaultData)));
+
         }
     }
 }

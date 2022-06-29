@@ -9,7 +9,7 @@ namespace SampleEntDev.Core.Dtos
 {
     public class GResponseDto<T> where T : class
     {
-        public T Data { get; set; }
+        public T? Data { get; set; }
         [JsonIgnore]
         public int  StatusCode { get; set; }
         public List<string> Errors { get; set; }

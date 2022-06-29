@@ -13,7 +13,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
 {
     [Area("ECommerce")]
    
-    public class ProductController : BaseController
+    public class ProductController : BaseController<ProductDto>
     {
         private readonly IMapper _mapper;
         //private readonly IGenericService<Product> _service;

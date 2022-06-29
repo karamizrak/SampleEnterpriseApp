@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Core.Dtos
 {
-    internal interface IDto
+    public interface IDto
     {
 
     }

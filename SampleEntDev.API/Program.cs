@@ -1,24 +1,14 @@
-using SampleEntDev.Repository;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using SampleEntDev.Core.IUnitOfWorks;
-using SampleEntDev.Repository.Repositories;
-using SampleEntDev.Core.Repositories;
-using SampleEntDev.Core.Services;
-using SampleEntDev.Service.Mapping;
-using SampleEntDev.API.Filter;
-using SampleEntDev.Repository.Repositories.Schemas.ECommerce;
-using SampleEntDev.Core.Repositories.Schemas.ECommerce;
-using SampleEntDev.Core.Services.Schemas.ECommerce;
-using SampleEntDev.Service.Services.Schemas.ECommerce;
-using FluentValidation.AspNetCore;
-using SampleEntDev.Service.Validations;
-using Microsoft.AspNetCore.Mvc;
-using SampleEntDev.API.MiddleWares;
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SampleEntDev.API.Filter;
+using SampleEntDev.API.MiddleWares;
 using SampleEntDev.API.Modules;
+using SampleEntDev.Repository;
+using SampleEntDev.Service.Mapping;
+using SampleEntDev.Service.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +20,7 @@ builder.Services.AddControllers(opt=>
 })
     .AddFluentValidation(x=> x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
 
-//Fluent Validator ýn dönmüþ olduðu model filtresini kapatmak için
+//Turned off the pattern filter that the "Fluent Validator" had returned.
 builder.Services.Configure<ApiBehaviorOptions>(opt =>
 {
     opt.SuppressModelStateInvalidFilter = true;
@@ -44,13 +34,10 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<TagByAreaNameOperationFilter>();
 });
 builder.Services.AddMemoryCache();
-//builder.Services.AddDbContext<AppDbContext>(x =>
-//{
-//    x.UseNpgsql()
-//});
 builder.Services.AddNpgsql<AppDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
+builder.Services.AddScoped(typeof(GetByIdFilter<,>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
@@ -72,9 +59,6 @@ app.UseAuthorization();
 
 
 app.MapControllers();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();
