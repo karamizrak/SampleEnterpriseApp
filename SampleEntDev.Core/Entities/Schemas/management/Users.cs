@@ -3,8 +3,13 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
-    public partial class User:IEntity
+    public partial class Users:IEntity
     {
+        public Users()
+        {
+            UserToFuncitons = new HashSet<UserToFuncitons>();
+        }
+
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
@@ -18,5 +23,7 @@ namespace SampleEntDev.Core.Entities.Schemas
         public int LastModifierId { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenEndDate { get; set; }
+
+        public virtual ICollection<UserToFuncitons> UserToFuncitons { get; set; }
     }
 }

@@ -8,9 +8,9 @@ using SampleEntDev.Core.Services;
 namespace SampleEntDev.API.Areas.User
 {
     [Area("Managemenet")]
-    public class UserController : GControllers<UserDto,Core.Entities.Schemas.User>
+    public class UserController : GControllers<UserDto,Core.Entities.Schemas.Users>
     {
-        public UserController(IMapper mapper, IGenericService<Core.Entities.Schemas.User> service) : base(mapper, service)
+        public UserController(IMapper mapper, IGenericService<Core.Entities.Schemas.Users> service) : base(mapper, service)
         {
         }
     }

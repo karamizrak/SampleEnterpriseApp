@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Core.Repositories.Schemas.Management
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<Users>
     {
-        Task<User> FindByEmailandPassword(string email, string password);
+        Task<Users> FindByEmailandPassword(string email, string password);
         Task SaveRefreshToken(int userId, string refreshToken, DateTime refreshTokenExpiration);
-        Task<User> GetUserByRefreshToken(string refreshToken);
+        Task<Users> GetUserByRefreshToken(string refreshToken);
         Task RemoveRefreshToken(int userId);
     }
 }

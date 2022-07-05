@@ -9,12 +9,12 @@ using SampleEntDev.Core.Services.Schemas.Management;
 
 namespace SampleEntDev.Service.Services.Schemas.Management
 {
-    public class UserService : GenericService<User>, IUserService
+    public class UserService : GenericService<Users>, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public UserService(IGenericRepository<User> repository, IUnitOfWork unitOfWork, IUserRepository userRepository, IMapper mapper) : base(repository, unitOfWork)
+        public UserService(IGenericRepository<Users> repository, IUnitOfWork unitOfWork, IUserRepository userRepository, IMapper mapper) : base(repository, unitOfWork)
         {
             _userRepository = userRepository;
             _mapper = mapper;

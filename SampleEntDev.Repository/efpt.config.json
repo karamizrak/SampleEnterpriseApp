@@ -14,6 +14,30 @@
    "SelectedToBeGenerated": 1,
    "Tables": [
       {
+         "Name": "management.Roles",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.UserToFuncitons",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.UserToRoles",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.Users",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.RoleToFunctions",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.Functions",
+         "ObjectType": 0
+      },
+      {
          "Name": "ecommerce.product",
          "ObjectType": 0
       },
@@ -27,10 +51,6 @@
       },
       {
          "Name": "ecommerce.product_feature",
-         "ObjectType": 0
-      },
-      {
-         "Name": "management.User",
          "ObjectType": 0
       }
    ],

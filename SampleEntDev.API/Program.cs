@@ -59,7 +59,8 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -107,6 +108,7 @@ builder.Services.AddAuthentication(x=>
 }).AddJwtBearer(jwtBearerConfig =>
 {
     jwtBearerConfig.SaveToken = true;
+    jwtBearerConfig.RequireHttpsMetadata = false;
     jwtBearerConfig.TokenValidationParameters =
         new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
         {

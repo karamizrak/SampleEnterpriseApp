@@ -11,13 +11,15 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Repository.Configurations
 {
-    public partial class UserConfiguration : IEntityTypeConfiguration<User>
+    public partial class UsersConfiguration : IEntityTypeConfiguration<Users>
     {
-        public void Configure(EntityTypeBuilder<User> entity)
+        public void Configure(EntityTypeBuilder<Users> entity)
         {
-            entity.ToTable("User", "management");
+            entity.ToTable("Users", "management");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasDefaultValueSql("nextval('management.\"User_id_seq\"'::regclass)");
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
@@ -65,6 +67,6 @@ namespace SampleEntDev.Repository.Configurations
             OnConfigurePartial(entity);
         }
 
-        partial void OnConfigurePartial(EntityTypeBuilder<User> entity);
+        partial void OnConfigurePartial(EntityTypeBuilder<Users> entity);
     }
 }

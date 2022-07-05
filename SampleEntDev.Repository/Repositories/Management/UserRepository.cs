@@ -12,22 +12,23 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Repository.Repositories.Management
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<Users>, IUserRepository
     {
         public UserRepository(AppDbContext context) : base(context)
         {
         }
 
-        public async Task<User> FindByEmailandPassword(string email, string password)
+        public async Task<Users> FindByEmailandPassword(string email, string password)
         {
             var cryptPass = SHA1.Create(password);
-            var user = await context.User.FirstOrDefaultAsync(x => x.EMail== email && x.Password== password);
+            // ReSharper disable once ComplexConditionExpression
+            var user = await context.Users.FirstOrDefaultAsync(x => x.EMail== email && x.Password== password);
             return user;
         }
 
-        public Task<User> GetUserByRefreshToken(string refreshToken)
+        public Task<Users> GetUserByRefreshToken(string refreshToken)
         {
-            var user = context.User.FirstOrDefaultAsync(x => x.RefreshToken == refreshToken);
+            var user = context.Users.FirstOrDefaultAsync(x => x.RefreshToken == refreshToken);
             return user;
         }
 

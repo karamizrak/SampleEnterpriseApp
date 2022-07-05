@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Core.Services.Schemas.Management
 {
-    public interface IUserService : IGenericService<User>
+    public interface IUserService : IGenericService<Users>
     {
         Task<GResponseDto<UserDto>> FindByEmailandPassword(string email, string password);
         Task SaveRefreshToken(int userId, string refreshToken, DateTime refreshTokenExpiration);
