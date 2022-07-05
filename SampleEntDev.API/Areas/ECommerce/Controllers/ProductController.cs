@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SampleEntDev.API.Controllers;
 using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.Services;
 using SampleEntDev.Core.Services.Schemas.ECommerce;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
 ﻿using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 
 namespace SampleEntDev.Web.Services
 {

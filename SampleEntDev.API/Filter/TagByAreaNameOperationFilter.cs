@@ -25,4 +25,15 @@ namespace SampleEntDev.API.Filter
             }
         }
     }
+
+    public class OrderTagsDocumentFilter : IDocumentFilter
+    {
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            swaggerDoc.Tags = swaggerDoc.Tags
+                .OrderBy(x => x.Name).ToList();
+        }
+    }
+
+   
 }

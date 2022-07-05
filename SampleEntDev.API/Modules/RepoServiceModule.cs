@@ -9,6 +9,10 @@ using SampleEntDev.Core.Services;
 using SampleEntDev.Core.IUnitOfWorks;
 using SampleEntDev.Caching;
 using SampleEntDev.Core.Services.Schemas.ECommerce;
+using SampleEntDev.Service.Services.Schemas.Management;
+using SampleEntDev.Core.Services.Schemas.Management;
+using SampleEntDev.Core.Security;
+using SampleEntDev.API.Filter;
 
 namespace SampleEntDev.API.Modules
 {
@@ -17,10 +21,14 @@ namespace SampleEntDev.API.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
-
             builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IGenericService<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(NotFoundFilter<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(GetByIdFilter<,>)).InstancePerLifetimeScope();
+
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<TokenHandler>().As<ITokenHandler>();
+            
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repoAssembly= Assembly.GetAssembly(typeof(AppDbContext));
@@ -33,6 +41,7 @@ namespace SampleEntDev.API.Modules
 
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
+
         }
     }
 }

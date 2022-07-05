@@ -28,6 +28,10 @@
       {
          "Name": "ecommerce.product_feature",
          "ObjectType": 0
+      },
+      {
+         "Name": "management.User",
+         "ObjectType": 0
       }
    ],
    "UiHint": "NLayerDb",

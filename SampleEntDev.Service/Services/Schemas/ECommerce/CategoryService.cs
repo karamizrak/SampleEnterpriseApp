@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.IUnitOfWorks;
 using SampleEntDev.Core.Repositories;

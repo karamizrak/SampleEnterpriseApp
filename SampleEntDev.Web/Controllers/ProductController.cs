@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Web.Services;
 
 namespace SampleEntDev.Web.Controllers

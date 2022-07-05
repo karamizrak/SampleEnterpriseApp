@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
+using SampleEntDev.Core.Dtos.Schemas.Management;
 using SampleEntDev.Core.Entities.Schemas;
 
 namespace SampleEntDev.Service.Mapping
@@ -14,6 +15,8 @@ namespace SampleEntDev.Service.Mapping
             CreateMap<ProductFeature, ProductFeatureDto>().ReverseMap();
             CreateMap<ProductUpdateDto, Product>();
             CreateMap<Product, ProductWithCategoryDto>();
+            CreateMap<User, UserDto>().ReverseMap();
+
 
         }
     }

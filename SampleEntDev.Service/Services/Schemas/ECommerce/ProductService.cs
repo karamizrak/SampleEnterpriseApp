@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.IUnitOfWorks;
 using SampleEntDev.Core.Repositories;
@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Service.Services.Schemas.ECommerce
 {
-    public class ProductServiceWithNoCaching : GenericService<Product>, IProductService
+    public class ProductService : GenericService<Product>, IProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ProductServiceWithNoCaching(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
+        public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
         {
             _productRepository = productRepository;
             _mapper = mapper;

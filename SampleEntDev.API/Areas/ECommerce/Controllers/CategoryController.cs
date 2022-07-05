@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SampleEntDev.API.Controllers;
 using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Dtos.Schemas.ecommerce;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.Services.Schemas.ECommerce;
 
@@ -23,6 +24,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var cat = await _categoryService.GetAllAsync();

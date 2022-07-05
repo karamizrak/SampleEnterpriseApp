@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleEntDev.Core.Dtos.Schemas.ecommerce
+namespace SampleEntDev.Core.Dtos.Schemas.ECommerce
 {
     public class ProductFeatureDto:IDto
     {

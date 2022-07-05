@@ -13,6 +13,7 @@ namespace SampleEntDev.Repository
         public virtual DbSet<Product> Product { get; set; } = null!;
         public virtual DbSet<ProductFeature> ProductFeature { get; set; } = null!;
         public virtual DbSet<Test> Test { get; set; } = null!;
+        public virtual DbSet<User> User { get; set; } = null!;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -25,6 +26,7 @@ namespace SampleEntDev.Repository
             modelBuilder.ApplyConfiguration(new Configurations.ProductConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.ProductFeatureConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.TestConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
