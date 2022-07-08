@@ -16,7 +16,10 @@ namespace SampleEntDev.Service.Mapping
             CreateMap<ProductUpdateDto, Product>();
             CreateMap<Product, ProductWithCategoryDto>();
             CreateMap<Users, UserDto>().ReverseMap();
-
+            CreateMap<Functions, FunctionDto>().ReverseMap();
+            CreateMap<Roles, RoleDto>().ReverseMap();
+            CreateMap<RoleToFunctions, RoleToFunctionDto>().ReverseMap();
+            CreateMap<UserToFuncitons, UserToFuncitonDto>().ReverseMap();
 
         }
     }

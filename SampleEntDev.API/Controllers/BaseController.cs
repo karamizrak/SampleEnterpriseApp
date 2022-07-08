@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
 
 namespace SampleEntDev.API.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]
-
+    [GsbAuthorization]
     public class BaseController<TDefaultModel> : ControllerBase where TDefaultModel : class
     {
         public BaseController()

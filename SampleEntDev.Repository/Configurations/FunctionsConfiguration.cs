@@ -21,14 +21,26 @@ namespace SampleEntDev.Repository.Configurations
                 .HasColumnName("id")
                 .HasDefaultValueSql("nextval('management.functions_id_seq'::regclass)");
 
+            entity.Property(e => e.ActionName)
+                .HasColumnType("character varying")
+                .HasColumnName("action_name");
+
+            entity.Property(e => e.AreaName)
+                .HasColumnType("character varying")
+                .HasColumnName("area_name");
+
+            entity.Property(e => e.ControllerName)
+                .HasColumnType("character varying")
+                .HasColumnName("controller_name");
+
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            entity.Property(e => e.FuntionName)
+            entity.Property(e => e.FunctionName)
                 .HasColumnType("character varying")
-                .HasColumnName("funtion_name");
+                .HasColumnName("function_name");
 
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("timestamp without time zone")

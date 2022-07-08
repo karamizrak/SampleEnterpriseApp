@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleEntDev.Repository.Repositories.Management
+namespace SampleEntDev.Repository.Repositories.Schemas.Management
 {
     public class UserRepository : GenericRepository<Users>, IUserRepository
     {

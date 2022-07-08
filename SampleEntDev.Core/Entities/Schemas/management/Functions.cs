@@ -14,7 +14,10 @@ namespace SampleEntDev.Core.Entities.Schemas
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
-        public string FuntionName { get; set; } = null!;
+        public string FunctionName { get; set; } = null!;
+        public string? AreaName { get; set; }
+        public string ControllerName { get; set; } = null!;
+        public string ActionName { get; set; } = null!;
 
         public virtual ICollection<RoleToFunctions> RoleToFunctions { get; set; }
         public virtual ICollection<UserToFuncitons> UserToFuncitons { get; set; }

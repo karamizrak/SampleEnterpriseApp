@@ -3,28 +3,15 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.OpenApi.Models;
 using SampleEntDev.API.Filter;
 using SampleEntDev.API.MiddleWares;
 using SampleEntDev.API.Modules;
-using SampleEntDev.Core.IUnitOfWorks;
-using SampleEntDev.Core.Repositories;
-using SampleEntDev.Core.Repositories.Schemas.ECommerce;
-using SampleEntDev.Core.Repositories.Schemas.Management;
 using SampleEntDev.Core.Security;
-using SampleEntDev.Core.Services;
-using SampleEntDev.Core.Services.Schemas.ECommerce;
-using SampleEntDev.Core.Services.Schemas.Management;
 using SampleEntDev.Repository;
-using SampleEntDev.Repository.Repositories;
-using SampleEntDev.Repository.Repositories.Management;
-using SampleEntDev.Repository.Repositories.Schemas.ECommerce;
 using SampleEntDev.Service.Mapping;
-using SampleEntDev.Service.Services.Schemas.ECommerce;
-using SampleEntDev.Service.Services.Schemas.Management;
 using SampleEntDev.Service.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -143,6 +130,7 @@ app.UseCustomException();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseCors();
 
 app.MapControllers();
