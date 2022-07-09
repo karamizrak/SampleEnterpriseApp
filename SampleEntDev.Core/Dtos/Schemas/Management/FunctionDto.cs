@@ -15,7 +15,7 @@ namespace SampleEntDev.Core.Dtos.Schemas.Management
         }
 
         public int Id { get; set; }
-        public string FuntionName { get; set; } = null!;
+        public string FunctionName { get; set; } = null!;
 
         public List<RoleToFunctionDto> RoleToFunctions { get; set; }
         public List<UserToFuncitonDto> UserToFuncitons { get; set; }

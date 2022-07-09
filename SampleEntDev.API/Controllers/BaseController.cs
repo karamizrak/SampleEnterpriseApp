@@ -6,23 +6,22 @@ namespace SampleEntDev.API.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]
-    [GsbAuthorization]
+    [ServiceFilter(typeof(CustomAuthorizationAttribute))]
     public class BaseController<TDefaultModel> : ControllerBase where TDefaultModel : class
     {
         public BaseController()
         {
-
         }
 
-        
+
         protected TDefaultModel DefaultData
         {
             get
             {
                 var tmpModel = HttpContext?.Items.FirstOrDefault(x => ReferenceEquals(x.Key, "model"));
                 return tmpModel?.Value as TDefaultModel;
-                    
-                    //;
+
+                //;
             }
             set
             {
@@ -31,15 +30,16 @@ namespace SampleEntDev.API.Controllers
         }
 
         [NonAction] //swagger bunu dışarı göstermemesi için
-       public IActionResult CreateActionResult<T>(GResponseDto<T> response) where T : class
+        public IActionResult CreateActionResult<T>(GResponseDto<T> response) where T : class
         {
-            if(response.StatusCode == 204)
+            if (response.StatusCode == 204)
             {
                 return new ObjectResult(null)
                 {
                     StatusCode = response.StatusCode
                 };
             }
+
             return new ObjectResult(response)
             {
                 StatusCode = response.StatusCode

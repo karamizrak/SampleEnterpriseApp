@@ -20,11 +20,22 @@ namespace SampleEntDev.Repository.Repositories.Schemas.Management
             var fList = await context.UserToFuncitons.Include(x => x.Function).Where(x => x.UserId == userId)
                 .Select(s => s.Function).ToListAsync();
 
-            //var function = await context.Functions.Include(x => x.UserToFuncitons)
-            //    .FirstOrDefaultAsync(x => x.UserToFuncitons.Any(c => c.UserId == userId));
-
             return fList.ToList();
+        }
 
+        public async Task<Functions?> GetUserAuthorizedFunctions(int userId, string? functionName,
+            string? controllerName, string? areaName = null)
+        {
+            var query = context.UserToFuncitons.Include(x => x.Function).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(functionName))
+                query = query.Where(c => c.Function.ActionName == functionName);
+            if (!string.IsNullOrWhiteSpace(controllerName))
+                query = query.Where(v => v.Function.ControllerName == controllerName);
+            if (!string.IsNullOrWhiteSpace(areaName))
+                query = query.Where(v => v.Function.AreaName == areaName);
+            query = query.Where(x => x.UserId == userId);
+            var flist = await query.Select(s => s.Function).FirstOrDefaultAsync();
+            return flist;
         }
     }
 }

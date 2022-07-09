@@ -8,6 +8,7 @@ namespace SampleEntDev.Core.Entities.Schemas
         public Roles()
         {
             RoleToFunctions = new HashSet<RoleToFunctions>();
+            UserToRoles = new HashSet<UserToRoles>();
         }
 
         public DateTime CreatedDate { get; set; }
@@ -16,5 +17,6 @@ namespace SampleEntDev.Core.Entities.Schemas
         public string RoleName { get; set; } = null!;
 
         public virtual ICollection<RoleToFunctions> RoleToFunctions { get; set; }
+        public virtual ICollection<UserToRoles> UserToRoles { get; set; }
     }
 }

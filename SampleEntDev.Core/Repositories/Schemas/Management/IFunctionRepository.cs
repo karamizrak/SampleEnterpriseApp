@@ -7,8 +7,11 @@ using SampleEntDev.Core.Entities.Schemas;
 
 namespace SampleEntDev.Core.Repositories.Schemas.Management
 {
-    public interface IFunctionRepository:IGenericRepository<Functions>
+    public interface IFunctionRepository : IGenericRepository<Functions>
     {
         Task<IEnumerable<Functions>> GetUserAuthorizedFunctions(int userId);
+
+        Task<Functions?> GetUserAuthorizedFunctions(int userId, string? functionName, string? controllerName,
+            string? areaName = null);
     }
 }

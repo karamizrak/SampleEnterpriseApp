@@ -8,6 +8,7 @@ namespace SampleEntDev.Core.Entities.Schemas
         public Users()
         {
             UserToFuncitons = new HashSet<UserToFuncitons>();
+            UserToRoles = new HashSet<UserToRoles>();
         }
 
         public DateTime CreatedDate { get; set; }
@@ -25,5 +26,6 @@ namespace SampleEntDev.Core.Entities.Schemas
         public DateTime? RefreshTokenEndDate { get; set; }
 
         public virtual ICollection<UserToFuncitons> UserToFuncitons { get; set; }
+        public virtual ICollection<UserToRoles> UserToRoles { get; set; }
     }
 }

@@ -11,6 +11,9 @@ namespace SampleEntDev.Core.Services.Schemas.Management
 {
     public interface IFunctionService : IGenericService<Functions>
     {
-        Task<GResponseDto<FunctionDto>> GetUserAuthorizedFunctions(int userId);
+        Task<GResponseDto<List<FunctionDto>>> GetUserAuthorizedFunctions(int userId);
+
+        Task<GResponseDto<FunctionDto>> GetUserAuthorizedFunctions(int userId, string? actionName,
+            string? controllerName, string? areaName = null);
     }
 }

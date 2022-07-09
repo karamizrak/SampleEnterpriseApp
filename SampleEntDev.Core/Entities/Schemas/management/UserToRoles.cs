@@ -12,5 +12,8 @@ namespace SampleEntDev.Core.Entities.Schemas
         public int RoleId { get; set; }
         public DateTime? ValidityPeriodStartTime { get; set; }
         public DateTime? ValidityPeriodEndTime { get; set; }
+
+        public virtual Roles Role { get; set; } = null!;
+        public virtual Users User { get; set; } = null!;
     }
 }

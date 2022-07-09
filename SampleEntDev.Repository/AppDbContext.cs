@@ -1,10 +1,10 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Repository.Configurations;
 using System;
 using System.Collections.Generic;
+
 namespace SampleEntDev.Repository
 {
     public partial class AppDbContext : DbContext
@@ -22,8 +22,8 @@ namespace SampleEntDev.Repository
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
