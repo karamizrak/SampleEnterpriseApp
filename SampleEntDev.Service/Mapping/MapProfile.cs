@@ -5,7 +5,7 @@ using SampleEntDev.Core.Entities.Schemas;
 
 namespace SampleEntDev.Service.Mapping
 {
-    public class MapProfile:Profile
+    public class MapProfile : Profile
     {
         public MapProfile()
         {
@@ -18,9 +18,9 @@ namespace SampleEntDev.Service.Mapping
             CreateMap<Users, UserDto>().ReverseMap();
             CreateMap<Functions, FunctionDto>().ReverseMap();
             CreateMap<Roles, RoleDto>().ReverseMap();
+            CreateMap<UserToRoles, UserToRoleDto>().ReverseMap();
             CreateMap<RoleToFunctions, RoleToFunctionDto>().ReverseMap();
             CreateMap<UserToFuncitons, UserToFuncitonDto>().ReverseMap();
-
         }
     }
 }

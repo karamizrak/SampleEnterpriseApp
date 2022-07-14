@@ -32,14 +32,20 @@ namespace SampleEntDev.Service.Services.Schemas.Management
             var authorizedMethods =
                 await _functionRepository.GetUserAuthorizedFunctions(userId, actionName, controllerName, areaName);
             var data = _mapper.Map<FunctionDto>(authorizedMethods);
-            return GResponseDto<FunctionDto>.Success(200, data);
+            if (data == null) return GResponseDto<FunctionDto>.Fail(401, "Unuthorized");
+            return data.Id > 0
+                ? GResponseDto<FunctionDto>.Success(200, data)
+                : GResponseDto<FunctionDto>.Fail(401, "Unuthorized");
         }
 
         public async Task<GResponseDto<List<FunctionDto>>> GetUserAuthorizedFunctions(int userId)
         {
             var authorizedMethods = await _functionRepository.GetUserAuthorizedFunctions(userId);
             var data = _mapper.Map<IEnumerable<FunctionDto>>(authorizedMethods);
-            return GResponseDto<List<FunctionDto>>.Success(200, data.ToList());
+            if (data == null) return GResponseDto<List<FunctionDto>>.Fail(401, "Unuthorized");
+            return data.Any(x => x.Id > 0)
+                ? GResponseDto<List<FunctionDto>>.Success(200, data.ToList())
+                : GResponseDto<List<FunctionDto>>.Fail(401, "Unuthorized");
         }
     }
 }

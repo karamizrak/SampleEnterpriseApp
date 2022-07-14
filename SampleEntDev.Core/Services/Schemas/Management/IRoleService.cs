@@ -12,5 +12,9 @@ namespace SampleEntDev.Core.Services.Schemas.Management
     public interface IRoleService : IGenericService<Roles>
     {
         Task<GResponseDto<List<RoleDto>>> GetUserAuthorizedRoles(int userId);
+
+        Task<GResponseDto<List<RoleDto>>> GetRolesFromFunctionByUserId(int userId, string? actionName,
+            string? controllerName,
+            string? areaName);
     }
 }

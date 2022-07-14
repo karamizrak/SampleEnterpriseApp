@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
-    public partial class RoleToFunctions:IEntity
+    public partial class RoleToFunctions : IEntity
     {
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }

@@ -30,7 +30,24 @@ namespace SampleEntDev.Service.Services.Schemas.Management
         {
             var roles = await _roleRepository.GetUserAuthorizedRoles(userId);
             var data = _mapper.Map<List<RoleDto>>(roles);
-            return GResponseDto<List<RoleDto>>.Success(200, data);
+
+            if (data == null) return GResponseDto<List<RoleDto>>.Fail(401, "Unuthorized");
+            return data.Any(x => x.Id > 0)
+                ? GResponseDto<List<RoleDto>>.Success(200, data)
+                : GResponseDto<List<RoleDto>>.Fail(401, "Unuthorized");
+        }
+
+        public async Task<GResponseDto<List<RoleDto>>> GetRolesFromFunctionByUserId(int userId, string? actionName,
+            string? controllerName,
+            string? areaName)
+        {
+            var roles = await _roleRepository.GetRolesFromFunctionByUserId(userId, actionName, controllerName,
+                areaName);
+            var data = _mapper.Map<List<RoleDto>>(roles);
+            if (data == null) return GResponseDto<List<RoleDto>>.Fail(401, "Unuthorized");
+            return data.Any(x => x.Id > 0)
+                ? GResponseDto<List<RoleDto>>.Success(200, data)
+                : GResponseDto<List<RoleDto>>.Fail(401, "Unuthorized");
         }
     }
 }
