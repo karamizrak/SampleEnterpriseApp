@@ -36,11 +36,6 @@ namespace SampleEntDev.Repository.Configurations
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("updated_date");
 
-            entity.HasOne(d => d.Category)
-                .WithMany(p => p.Product)
-                .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("product_category_id_fkey");
-
             OnConfigurePartial(entity);
         }
 

@@ -15,9 +15,11 @@ namespace SampleEntDev.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<UserToRoles> entity)
         {
-            entity.ToTable("UserToRoles", "management");
+            entity.ToTable("user_to_roles", "management");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasDefaultValueSql("nextval('management.\"UserToRoles_id_seq\"'::regclass)");
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
@@ -39,18 +41,6 @@ namespace SampleEntDev.Repository.Configurations
             entity.Property(e => e.ValidityPeriodStartTime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("validity_period_start_time");
-
-            entity.HasOne(d => d.Role)
-                .WithMany(p => p.UserToRoles)
-                .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("UserToRoles_role_id_fkey");
-
-            entity.HasOne(d => d.User)
-                .WithMany(p => p.UserToRoles)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("UserToRoles_user_id_fkey");
 
             OnConfigurePartial(entity);
         }

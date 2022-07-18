@@ -23,7 +23,7 @@ namespace SampleEntDev.Repository.Repositories.Schemas.Management.Tests
         public void GetFunctionsInRoleTest()
         {
             var f = new RoleRepository(new AppDbContext((DbContextOptions<AppDbContext>)opt.Options));
-            var fonctions = f.GetRolesByFunction(2, "Get", "Category", "ECommerce").Result;
+            var fonctions = f.GetRolesFromFunctionByUserId(2, "Get", "Category", "ECommerce").Result;
 
             Assert.IsTrue(true);
         }

@@ -30,12 +30,6 @@ namespace SampleEntDev.Repository.Configurations
 
             entity.Property(e => e.Width).HasColumnName("width");
 
-            entity.HasOne(d => d.Product)
-                .WithOne(p => p.ProductFeature)
-                .HasForeignKey<ProductFeature>(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("product_feature_product_id_fkey");
-
             OnConfigurePartial(entity);
         }
 

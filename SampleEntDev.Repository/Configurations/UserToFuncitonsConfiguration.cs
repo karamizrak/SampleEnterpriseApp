@@ -15,7 +15,7 @@ namespace SampleEntDev.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<UserToFuncitons> entity)
         {
-            entity.ToTable("UserToFuncitons", "management");
+            entity.ToTable("user_to_funcitons", "management");
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
@@ -41,18 +41,6 @@ namespace SampleEntDev.Repository.Configurations
             entity.Property(e => e.ValidityPeriodStartTime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("validity_period_start_time");
-
-            entity.HasOne(d => d.Function)
-                .WithMany(p => p.UserToFuncitons)
-                .HasForeignKey(d => d.FunctionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("UserToFunciton_function_id_fkey");
-
-            entity.HasOne(d => d.User)
-                .WithMany(p => p.UserToFuncitons)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("UserToFunciton_user_id_fkey");
 
             OnConfigurePartial(entity);
         }

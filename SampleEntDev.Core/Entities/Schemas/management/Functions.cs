@@ -7,6 +7,7 @@ namespace SampleEntDev.Core.Entities.Schemas
     {
         public Functions()
         {
+            Menu = new HashSet<Menu>();
             RoleToFunctions = new HashSet<RoleToFunctions>();
             UserToFuncitons = new HashSet<UserToFuncitons>();
         }
@@ -19,6 +20,7 @@ namespace SampleEntDev.Core.Entities.Schemas
         public string ControllerName { get; set; } = null!;
         public string ActionName { get; set; } = null!;
 
+        public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<RoleToFunctions> RoleToFunctions { get; set; }
         public virtual ICollection<UserToFuncitons> UserToFuncitons { get; set; }
     }

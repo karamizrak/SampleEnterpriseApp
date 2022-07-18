@@ -4,7 +4,7 @@ using SampleEntDev.Core.Dtos;
 
 namespace SampleEntDev.API.Controllers
 {
-    [Route("api/[area]/[controller]")]
+    [Route("api/[area]/[controller]/[action]")]
     [ApiController]
     [ServiceFilter(typeof(CustomAuthorizationAttribute))]
     public class BaseController<TDefaultModel> : ControllerBase where TDefaultModel : class

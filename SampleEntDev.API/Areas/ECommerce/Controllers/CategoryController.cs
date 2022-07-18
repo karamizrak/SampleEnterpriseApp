@@ -23,29 +23,28 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             _categoryService = categoryService;
             _mapper = mapper;
         }
+
         [HttpGet]
-        [Authorize]
+        [SkipAuthorization]
         public async Task<IActionResult> GetAll()
         {
             var cat = await _categoryService.GetAllAsync();
             var catDto = _mapper.Map<List<CategoryDto>>(cat.ToList());
             return CreateActionResult(GResponseDto<List<CategoryDto>>.Success(200, catDto));
-
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<IActionResult> GetSingleCategoryByIdWithProducts(int categoryId)
         {
             return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProductsAsnyc(categoryId));
         }
 
-        [ServiceFilter(typeof(GetByIdFilter<Category,CategoryDto>))]
+        [ServiceFilter(typeof(GetByIdFilter<Category, CategoryDto>))]
         // GET api/<ProductController>/5
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetAsync(int id)
         {
             return await Task.FromResult(CreateActionResult(GResponseDto<CategoryDto>.Success(200, DefaultData)));
-
         }
     }
 }

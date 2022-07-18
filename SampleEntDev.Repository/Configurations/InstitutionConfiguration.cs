@@ -11,24 +11,38 @@ using System.Collections.Generic;
 
 namespace SampleEntDev.Repository.Configurations
 {
-    public partial class RolesConfiguration : IEntityTypeConfiguration<Roles>
+    public partial class InstitutionConfiguration : IEntityTypeConfiguration<Institution>
     {
-        public void Configure(EntityTypeBuilder<Roles> entity)
+        public void Configure(EntityTypeBuilder<Institution> entity)
         {
-            entity.ToTable("roles", "management");
+            entity.ToTable("institution", "global");
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
-                .HasDefaultValueSql("nextval('management.\"Roles_id_seq\"'::regclass)");
+                .HasDefaultValueSql("nextval('global.\"Institution_id_seq\"'::regclass)");
+
+            entity.Property(e => e.Address)
+                .HasColumnType("character varying")
+                .HasColumnName("address");
+
+            entity.Property(e => e.CityId).HasColumnName("city_id");
+
+            entity.Property(e => e.CountyId).HasColumnName("county_id");
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            entity.Property(e => e.RoleName)
+            entity.Property(e => e.Name)
                 .HasColumnType("character varying")
-                .HasColumnName("role_name");
+                .HasColumnName("name");
+
+            entity.Property(e => e.NeighborhoodId).HasColumnName("neighborhood_id");
+
+            entity.Property(e => e.Phone)
+                .HasColumnType("character varying")
+                .HasColumnName("phone");
 
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("timestamp without time zone")
@@ -37,6 +51,6 @@ namespace SampleEntDev.Repository.Configurations
             OnConfigurePartial(entity);
         }
 
-        partial void OnConfigurePartial(EntityTypeBuilder<Roles> entity);
+        partial void OnConfigurePartial(EntityTypeBuilder<Institution> entity);
     }
 }

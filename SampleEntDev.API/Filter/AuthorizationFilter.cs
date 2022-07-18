@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using SampleEntDev.Core.Dtos;
-using SampleEntDev.Core.Services;
 using SampleEntDev.Core.Services.Schemas.Management;
 
 namespace SampleEntDev.API.Filter
@@ -21,6 +20,11 @@ namespace SampleEntDev.API.Filter
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            if (context.ActionDescriptor.EndpointMetadata.OfType<SkipAuthorization>().Any())
+            {
+                return;
+            }
+
             if (!CheckUserPermission(context))
                 context.Result =
                     new JsonResult(GResponseDto<NoContentDto>.Fail(401, "You don't have access to this function."))
@@ -40,14 +44,10 @@ namespace SampleEntDev.API.Filter
 
             var authorizedFromRoles =
                 _roleService.GetRolesFromFunctionByUserId(userId, action, controller, area).Result;
-            if (authorizedFromRoles.StatusCode != 200)
-            {
-                var authorizedFunction =
-                    _functionService.GetUserAuthorizedFunctions(userId, action, controller, area).Result;
-                return authorizedFunction.StatusCode == 200;
-            }
-
-            return authorizedFromRoles.StatusCode == 200;
+            if (authorizedFromRoles.StatusCode == 200) return authorizedFromRoles.StatusCode == 200;
+            var authorizedFunction =
+                _functionService.GetUserAuthorizedFunctions(userId, action, controller, area).Result;
+            return authorizedFunction.StatusCode == 200;
         }
     }
 }

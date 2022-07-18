@@ -4,7 +4,7 @@
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": true,
+   "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": "",
    "OutputPath": null,
@@ -14,27 +14,31 @@
    "SelectedToBeGenerated": 1,
    "Tables": [
       {
-         "Name": "management.Roles",
+         "Name": "management.roles",
          "ObjectType": 0
       },
       {
-         "Name": "management.UserToFuncitons",
+         "Name": "management.user_to_funcitons",
          "ObjectType": 0
       },
       {
-         "Name": "management.UserToRoles",
+         "Name": "management.user_to_roles",
          "ObjectType": 0
       },
       {
-         "Name": "management.Users",
+         "Name": "management.users",
          "ObjectType": 0
       },
       {
-         "Name": "management.RoleToFunctions",
+         "Name": "management.role_to_functions",
          "ObjectType": 0
       },
       {
-         "Name": "management.Functions",
+         "Name": "management.functions",
+         "ObjectType": 0
+      },
+      {
+         "Name": "management.menu",
          "ObjectType": 0
       },
       {
@@ -52,6 +56,10 @@
       {
          "Name": "ecommerce.product_feature",
          "ObjectType": 0
+      },
+      {
+         "Name": "global.institution",
+         "ObjectType": 0
       }
    ],
    "UiHint": "NLayerDb",
@@ -64,9 +72,9 @@
    "UseInflector": false,
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": true,
-   "UseNoConstructor": false,
+   "UseNoConstructor": true,
    "UseNoDefaultConstructor": false,
-   "UseNoNavigations": false,
+   "UseNoNavigations": true,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": true,

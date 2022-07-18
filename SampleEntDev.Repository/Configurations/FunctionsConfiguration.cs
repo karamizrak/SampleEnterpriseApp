@@ -15,11 +15,9 @@ namespace SampleEntDev.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<Functions> entity)
         {
-            entity.ToTable("Functions", "management");
+            entity.ToTable("functions", "management");
 
-            entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .HasDefaultValueSql("nextval('management.functions_id_seq'::regclass)");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.ActionName)
                 .HasColumnType("character varying")

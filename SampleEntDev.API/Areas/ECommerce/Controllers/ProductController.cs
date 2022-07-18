@@ -12,10 +12,10 @@ using SampleEntDev.Service.Services.Schemas.ECommerce;
 namespace SampleEntDev.API.Areas.ECommerce.Controllers
 {
     [Area("ECommerce")]
-   
     public class ProductController : BaseController<ProductDto>
     {
         private readonly IMapper _mapper;
+
         //private readonly IGenericService<Product> _service;
         private readonly IProductService _productService;
 
@@ -39,7 +39,6 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             var p = await _productService.GetAllAsync();
             var pDto = _mapper.Map<List<ProductDto>>(p);
             return CreateActionResult(GResponseDto<List<ProductDto>>.Success(200, pDto));
-            
         }
 
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
@@ -48,9 +47,8 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         public async Task<IActionResult> GetAsync(int id)
         {
             var p = await _productService.GetByIdAsync(id);
-            var pDto= _mapper.Map<ProductDto>(p);
+            var pDto = _mapper.Map<ProductDto>(p);
             return CreateActionResult(GResponseDto<ProductDto>.Success(200, pDto));
-
         }
 
         // POST api/<ProductController>
@@ -58,7 +56,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         public async Task<IActionResult> Post(ProductDto pDto)
         {
             var p = await _productService.AddAsync(_mapper.Map<Product>(pDto));
-            var savedProduct=_mapper.Map<ProductDto>(p);
+            var savedProduct = _mapper.Map<ProductDto>(p);
             return CreateActionResult(GResponseDto<ProductDto>.Success(201, savedProduct));
         }
 
@@ -68,6 +66,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             await _productService.UpdateAsync(_mapper.Map<Product>(pDto));
             return CreateActionResult(GResponseDto<NoContentDto>.Success(204));
         }
+
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]

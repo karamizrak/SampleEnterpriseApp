@@ -15,7 +15,7 @@ namespace SampleEntDev.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<Users> entity)
         {
-            entity.ToTable("Users", "management");
+            entity.ToTable("users", "management");
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
