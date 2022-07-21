@@ -13,27 +13,27 @@ namespace SampleEntDev.Repository.Repositories
     {
         protected readonly AppDbContext context;
         private readonly DbSet<T> dbSet;
+
         public GenericRepository(AppDbContext context)
         {
             this.context = context;
-            dbSet = context.Set<T>();   
+            dbSet = context.Set<T>();
         }
+
         public async Task<T> AddAsync(T entity)
         {
             await context.AddAsync(entity);
             return entity;
-
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
             await context.AddRangeAsync(entities);
-
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
         {
-          return  await dbSet.AnyAsync(expression);
+            return await dbSet.AnyAsync(expression);
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -42,14 +42,16 @@ namespace SampleEntDev.Repository.Repositories
             return await dbSet.FindAsync(id);
 #pragma warning restore CS8603 // Possible null reference return.
         }
+
         public IQueryable<T> GetAll()
         {
-            return  dbSet.AsNoTracking().AsQueryable();
+            return dbSet.AsNoTracking().AsQueryable();
         }
+
         public void Remove(T entity)
         {
             //context.Entry(entity).State = EntityState.Deleted;
-            dbSet.Remove(entity);   
+            dbSet.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<T> entities)
@@ -73,6 +75,46 @@ namespace SampleEntDev.Repository.Repositories
             return dbSet.AsNoTracking().Where(expression);
         }
 
+        public IQueryable<T> Query()
+        {
+            return context.Set<T>().AsQueryable();
+        }
 
+        public IEnumerable<T> Where(Expression<Func<T, bool>> filterPredicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate = null,
+            string navigationProperties = "",
+            int? page = null,
+            int? pageSize = null)
+        {
+            IQueryable<T> query = context.Set<T>();
+
+            if (filterPredicate != null)
+            {
+                query = query.Where(filterPredicate);
+            }
+
+            if (orderByPredicate != null)
+            {
+                query = orderByPredicate(query);
+            }
+
+            if (navigationProperties != null)
+            {
+                foreach (string navigationPropertyPath in navigationProperties.Split(new[] { ',' },
+                             StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(navigationPropertyPath);
+                }
+            }
+
+            if (page != null && pageSize != null)
+            {
+                query = query
+                    .Skip((page.Value - 1) * pageSize.Value)
+                    .Take(pageSize.Value);
+            }
+
+            return query.ToList();
+        }
     }
 }
