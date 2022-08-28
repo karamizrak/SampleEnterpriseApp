@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Dtos.Schemas.Management;
 using SampleEntDev.Core.Entities.Schemas;
@@ -20,7 +21,8 @@ namespace SampleEntDev.Service.Services.Schemas.Management
         private readonly IMapper _mapper;
 
         public RoleService(IGenericRepository<Roles> repository, IUnitOfWork unitOfWork, IRoleRepository roleRepository,
-            IMapper mapper) : base(repository, unitOfWork)
+            IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(repository, unitOfWork,
+            httpContextAccessor)
         {
             _roleRepository = roleRepository;
             _mapper = mapper;

@@ -32,9 +32,17 @@ namespace SampleEntDev.Repository.Configurations
 
             entity.Property(e => e.IdentityNumber).HasColumnName("identity_number");
 
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValueSql("false");
+
             entity.Property(e => e.LastLoginDatetime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("last_login_datetime");
+
+            entity.Property(e => e.LastModifier)
+                .HasColumnType("character varying")
+                .HasColumnName("last_modifier");
 
             entity.Property(e => e.LastModifierId).HasColumnName("last_modifier_id");
 

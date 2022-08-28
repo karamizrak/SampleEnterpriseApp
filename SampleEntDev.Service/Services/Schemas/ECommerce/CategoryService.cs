@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace SampleEntDev.Service.Services.Schemas.ECommerce
 {
@@ -18,7 +19,10 @@ namespace SampleEntDev.Service.Services.Schemas.ECommerce
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        public CategoryService(IGenericRepository<Category> repository, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository, IMapper mapper) : base(repository, unitOfWork)
+
+        public CategoryService(IGenericRepository<Category> repository, IUnitOfWork unitOfWork,
+            ICategoryRepository categoryRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(
+            repository, unitOfWork, httpContextAccessor)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

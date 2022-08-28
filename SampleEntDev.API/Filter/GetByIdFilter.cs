@@ -10,9 +10,10 @@ namespace SampleEntDev.API.Filter
     /// <summary>
     /// To use this filter, the controller must derive from "BaseController" and actions used with the "Id" parameter will be overwritten. And the desired data is returned in the "DefaultData" property in the action.
     /// </summary>
-    /// <typeparam name="TEntity">Entity tipi</typeparam>
-    /// <typeparam name="TModel">Dönüştürülecek Model tipi</typeparam>
-    public class GetByIdFilter<TEntity, TDto> : IAsyncActionFilter where TEntity : class, IEntity where TDto : class, IDto
+    /// <typeparam name="TEntity">Entity type</typeparam>
+    /// <typeparam name="TDto">Type of model to return</typeparam>
+    public class GetByIdFilter<TEntity, TDto> : IAsyncActionFilter
+        where TEntity : class, IEntity where TDto : class, IDto
     {
         private readonly IGenericService<TEntity> _service;
         private readonly IMapper _mapper;
@@ -36,12 +37,14 @@ namespace SampleEntDev.API.Filter
             var entity = await _service.GetByIdAsync(id);
             if (entity == null)
             {
-                context.Result = new NotFoundObjectResult(GResponseDto<NoContentDto>.Fail(404, $"{typeof(TDto).Name} ({id}) not found."));
+                context.Result =
+                    new NotFoundObjectResult(GResponseDto<NoContentDto>.Fail(404,
+                        $"{typeof(TDto).Name} ({id}) not found."));
             }
             else
             {
                 var data = _mapper.Map<TDto>(entity);
-                context.HttpContext.Items.Add("model",  data);
+                context.HttpContext.Items.Add("model", data);
                 await next();
             }
         }

@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Core.Dtos.Schemas.Management
 {
-    public class UserDto:IDto
+    public class UserDto : IDto
     {
         public int Id { get; set; }
         public long? IdentityNumber { get; set; }
         public string Name { get; set; } = null!;
         public string Surename { get; set; } = null!;
         public string EMail { get; set; } = null!;
+
+        [System.Text.Json.Serialization.JsonIgnore]
         public string Password { get; set; } = null!;
+
         public DateTime? LastLoginDatetime { get; set; }
         public short RecordStatus { get; set; }
         public int LastModifierId { get; set; }

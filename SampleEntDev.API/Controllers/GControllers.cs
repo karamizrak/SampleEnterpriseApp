@@ -1,20 +1,22 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SampleEntDev.API.Filter;
 using SampleEntDev.Core.Dtos;
+using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities;
+using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.Services;
 
 namespace SampleEntDev.API.Controllers
 {
-
-  
-    public abstract class GControllers<TDefaultDtoModel,TEntity> : BaseController<TDefaultDtoModel> where TDefaultDtoModel : class,IDto where TEntity : class,IEntity
+    public abstract class GControllers<TDefaultDtoModel, TEntity> : BaseController<TDefaultDtoModel>
+        where TDefaultDtoModel : class, IDto where TEntity : class, IEntity
     {
         private readonly IMapper _mapper;
         private readonly IGenericService<TEntity> _service;
-        
 
-        public GControllers(IMapper mapper, IGenericService<TEntity> service)
+
+        protected GControllers(IMapper mapper, IGenericService<TEntity> service)
         {
             _mapper = mapper;
             _service = service;
@@ -36,7 +38,6 @@ namespace SampleEntDev.API.Controllers
             var p = await _service.GetByIdAsync(id);
             var pDto = _mapper.Map<TDefaultDtoModel>(p);
             return CreateActionResult(GResponseDto<TDefaultDtoModel>.Success(200, pDto));
-            
         }
 
         // POST api/<GController>

@@ -26,6 +26,14 @@ namespace SampleEntDev.Repository.Configurations
 
             entity.Property(e => e.Description).HasColumnName("description");
 
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValueSql("false");
+
+            entity.Property(e => e.LastModifier)
+                .HasColumnType("character varying")
+                .HasColumnName("last_modifier");
+
             entity.Property(e => e.Name).HasColumnName("name");
 
             entity.Property(e => e.UpdatedDate)

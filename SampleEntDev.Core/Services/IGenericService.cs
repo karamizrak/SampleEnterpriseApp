@@ -13,6 +13,5 @@ namespace SampleEntDev.Core.Services
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression);
         Task RemoveAsync(T entity);
-        Task RemoveRangeAsync(IEnumerable<T> entities);
     }
 }

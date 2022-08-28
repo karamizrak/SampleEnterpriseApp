@@ -21,14 +21,16 @@ namespace SampleEntDev.Caching
         private readonly IUnitOfWork _unitOfWork;
 
 
-        public ProductServiceWithCaching(IMapper mapper, IMemoryCache memoryCache, IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public ProductServiceWithCaching(IMapper mapper, IMemoryCache memoryCache, IProductRepository productRepository,
+            IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _memoryCache = memoryCache;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
 
-            if(!_memoryCache.TryGetValue(CacheProductKey,out _)) // _ Don't allocate space. I just want to check that it is.
+            if (!_memoryCache.TryGetValue(CacheProductKey,
+                    out _)) // _ Don't allocate space. I just want to check that it is.
             {
                 _memoryCache.Set(CacheProductKey, _productRepository.GetProductWithCategory().Result);
             }
@@ -69,17 +71,17 @@ namespace SampleEntDev.Caching
         public Task<Product> GetByIdAsync(int id)
         {
             var p = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
-            if(p == null)
+            if (p == null)
                 throw new NotFoundException($"{typeof(Product).Name} does not exist");
 
             return Task.FromResult(p);
         }
 
-        public  Task<GResponseDto<List<ProductWithCategoryDto>>> GetProductWithCategory()
+        public Task<GResponseDto<List<ProductWithCategoryDto>>> GetProductWithCategory()
         {
             var p = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
             var pWithCategory = _mapper.Map<List<ProductWithCategoryDto>>(p);
-            return Task.FromResult(  GResponseDto<List<ProductWithCategoryDto>>.Success(200, pWithCategory));
+            return Task.FromResult(GResponseDto<List<ProductWithCategoryDto>>.Success(200, pWithCategory));
         }
 
         public async Task RemoveAsync(Product entity)
@@ -89,19 +91,11 @@ namespace SampleEntDev.Caching
             await CacheAllProductsAsync();
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<Product> entities)
-        {
-            _productRepository.RemoveRange(entities);
-            await _unitOfWork.CommitAsync();
-            await CacheAllProductsAsync();
-        }
-
         public async Task UpdateAsync(Product entity)
         {
             _productRepository.Update(entity);
             await _unitOfWork.CommitAsync();
             await CacheAllProductsAsync();
-
         }
 
         public IQueryable<Product> Where(Expression<Func<Product, bool>> expression)
@@ -110,7 +104,7 @@ namespace SampleEntDev.Caching
         }
 
 
-    public async Task CacheAllProductsAsync()
+        public async Task CacheAllProductsAsync()
         {
             await _memoryCache.Set(CacheProductKey, _productRepository.GetAll().ToListAsync());
         }

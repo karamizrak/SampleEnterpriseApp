@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace SampleEntDev.Service.Services.Schemas.ECommerce
 {
@@ -18,7 +19,10 @@ namespace SampleEntDev.Service.Services.Schemas.ECommerce
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
+
+        public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork,
+            IProductRepository productRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(
+            repository, unitOfWork, httpContextAccessor)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -29,7 +33,6 @@ namespace SampleEntDev.Service.Services.Schemas.ECommerce
             var p = await _productRepository.GetProductWithCategory();
             var dto = _mapper.Map<List<ProductWithCategoryDto>>(p);
             return GResponseDto<List<ProductWithCategoryDto>>.Success(200, dto);
-
         }
     }
 }

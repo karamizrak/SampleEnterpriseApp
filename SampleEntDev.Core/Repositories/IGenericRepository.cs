@@ -13,7 +13,7 @@ namespace SampleEntDev.Core.Repositories
         T Update(T entity);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+
         IQueryable<T> Query();
 
         IEnumerable<T> Where(Expression<Func<T, bool>> filterPredicate = null,

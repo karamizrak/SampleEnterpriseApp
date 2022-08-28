@@ -13,11 +13,13 @@ using SampleEntDev.Repository;
 using SampleEntDev.Service.Mapping;
 using SampleEntDev.Service.Validations;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 using Serilog.Sinks.PostgreSQL;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 
 builder.Services.AddControllers(opt => { opt.Filters.Add(new ValidateFilterAttribute()); })
@@ -31,7 +33,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.OperationFilter<TagByAreaNameOperationFilter>();
+    //c.OperationFilter<TagByAreaNameOperationFilter>();
     c.DocumentFilter<OrderTagsDocumentFilter>();
     c.OrderActionsBy((apiDesc) =>
         $"{apiDesc.ActionDescriptor.RouteValues["area"]}_{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.ActionDescriptor.RouteValues["action"]}");
@@ -97,30 +99,19 @@ builder.Services.AddCors(opts =>
 {
     opts.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
-
-
-var loger = new LoggerConfiguration()
-    .MinimumLevel.Override("Default", LogEventLevel.Verbose)
-    .WriteTo.PostgreSQL(connStr, "logs4", new Dictionary<string, ColumnWriterBase>
-    {
-        { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
-        { "message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text) },
-        { "level", new LevelColumnWriter(true, NpgsqlDbType.Varchar) },
-        { "raise_date", new TimestampColumnWriter(NpgsqlDbType.Timestamp) },
-        { "exception", new ExceptionColumnWriter(NpgsqlDbType.Text) },
-        { "properties", new LogEventSerializedColumnWriter(NpgsqlDbType.Jsonb) },
-        { "props_test", new PropertiesColumnWriter(NpgsqlDbType.Jsonb) },
-        {
-            "machine_name",
-            new SinglePropertyColumnWriter("MachineName", PropertyWriteMethod.ToString, NpgsqlDbType.Text, "l")
-        }
-    }, schemaName: "global")
-    .CreateLogger();
 builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger: loger);
+builder.Logging.AddSeriLogx(connStr);
+
 
 var app = builder.Build();
 
+IHostApplicationLifetime lifetime = app.Lifetime;
+IWebHostEnvironment env = app.Environment;
+
+lifetime.ApplicationStarted.Register(() =>
+    app.Logger.LogInformation(
+        $"The application {env.ApplicationName} started"
+    ));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -130,7 +121,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCustomException();
+app.UseCustomException(app.Logger);
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -141,4 +132,3 @@ app.MapControllers();
 
 
 app.Run();
-Log.Information("WebApi Starting...");

@@ -5,7 +5,7 @@ namespace SampleEntDev.Core.Entities.Schemas
 {
     public partial class Menu:IEntity
     {
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
         public string Name { get; set; } = null!;
@@ -14,6 +14,8 @@ namespace SampleEntDev.Core.Entities.Schemas
         public int? ParentId { get; set; }
         public string? IconPath { get; set; }
         public int? FunctionId { get; set; }
+        public bool? IsDeleted { get; set; }
+        public string? LastModifier { get; set; }
 
         public virtual Functions? Function { get; set; }
     }

@@ -11,10 +11,12 @@ namespace SampleEntDev.Core.Entities.Schemas
             UserToRoles = new HashSet<UserToRoles>();
         }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
         public string RoleName { get; set; } = null!;
+        public bool? IsDeleted { get; set; }
+        public string? LastModifier { get; set; }
 
         public virtual ICollection<RoleToFunctions> RoleToFunctions { get; set; }
         public virtual ICollection<UserToRoles> UserToRoles { get; set; }

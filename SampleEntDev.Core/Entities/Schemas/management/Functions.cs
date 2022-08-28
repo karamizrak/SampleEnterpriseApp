@@ -12,13 +12,15 @@ namespace SampleEntDev.Core.Entities.Schemas
             UserToFuncitons = new HashSet<UserToFuncitons>();
         }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
         public string FunctionName { get; set; } = null!;
         public string? AreaName { get; set; }
         public string ControllerName { get; set; } = null!;
         public string ActionName { get; set; } = null!;
+        public bool? IsDeleted { get; set; }
+        public string? LastModifier { get; set; }
 
         public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<RoleToFunctions> RoleToFunctions { get; set; }

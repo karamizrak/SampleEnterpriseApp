@@ -28,6 +28,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         [SkipAuthorization]
         public async Task<IActionResult> GetAll()
         {
+            throw new Exception("Olmadı");
             var cat = await _categoryService.GetAllAsync();
             var catDto = _mapper.Map<List<CategoryDto>>(cat.ToList());
             return CreateActionResult(GResponseDto<List<CategoryDto>>.Success(200, catDto));
@@ -39,11 +40,13 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
             return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProductsAsnyc(categoryId));
         }
 
-        [ServiceFilter(typeof(GetByIdFilter<Category, CategoryDto>))]
+        //[ServiceFilter(typeof(GetByIdFilter<Category, CategoryDto>))]
         // GET api/<ProductController>/5
         [HttpGet]
+        [SkipAuthorization]
         public async Task<IActionResult> GetAsync(int id)
         {
+            throw new Exception("Olmadı2");
             return await Task.FromResult(CreateActionResult(GResponseDto<CategoryDto>.Success(200, DefaultData)));
         }
     }

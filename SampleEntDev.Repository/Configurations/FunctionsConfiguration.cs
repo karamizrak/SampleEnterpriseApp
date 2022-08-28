@@ -40,6 +40,14 @@ namespace SampleEntDev.Repository.Configurations
                 .HasColumnType("character varying")
                 .HasColumnName("function_name");
 
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValueSql("false");
+
+            entity.Property(e => e.LastModifier)
+                .HasColumnType("character varying")
+                .HasColumnName("last_modifier");
+
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("updated_date");

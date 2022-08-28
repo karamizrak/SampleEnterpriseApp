@@ -36,6 +36,14 @@ namespace SampleEntDev.Repository.Configurations
                 .HasColumnType("character varying")
                 .HasColumnName("icon_path");
 
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValueSql("false");
+
+            entity.Property(e => e.LastModifier)
+                .HasColumnType("character varying")
+                .HasColumnName("last_modifier");
+
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");

@@ -11,7 +11,7 @@ namespace SampleEntDev.Core.Entities.Schemas
             UserToRoles = new HashSet<UserToRoles>();
         }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int Id { get; set; }
         public long? IdentityNumber { get; set; }
@@ -24,6 +24,8 @@ namespace SampleEntDev.Core.Entities.Schemas
         public int LastModifierId { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenEndDate { get; set; }
+        public bool? IsDeleted { get; set; }
+        public string? LastModifier { get; set; }
 
         public virtual ICollection<UserToFuncitons> UserToFuncitons { get; set; }
         public virtual ICollection<UserToRoles> UserToRoles { get; set; }

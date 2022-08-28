@@ -51,13 +51,16 @@ namespace SampleEntDev.Repository.Repositories
         public void Remove(T entity)
         {
             //context.Entry(entity).State = EntityState.Deleted;
-            dbSet.Remove(entity);
+            var property = entity.GetType().GetProperty("IsDeleted");
+            if (property != null)
+            {
+                property.SetValue(entity, true);
+            }
+
+            Update(entity);
+            //dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            dbSet.RemoveRange(entities);
-        }
 
         public T Update(T entity)
         {

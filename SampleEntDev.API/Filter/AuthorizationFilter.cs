@@ -20,6 +20,9 @@ namespace SampleEntDev.API.Filter
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+#if DEBUG
+            return;
+#endif
             if (context.ActionDescriptor.EndpointMetadata.OfType<SkipAuthorization>().Any())
             {
                 return;

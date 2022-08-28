@@ -20,36 +20,30 @@ namespace SampleEntDev.Repository.Repositories
 
         public void Commit()
         {
-            context.ChangeTracker.Entries().ToList().ForEach(e =>
-            {
-                if (e.State == EntityState.Added)
-                {
-                    PropertyReflection.SetValue(e, "CreatedDate", DateTime.Now);
-                }
-
-                if (e.State == EntityState.Modified)
-                {
-                    PropertyReflection.SetValue(e, "UpdatedDate", DateTime.Now);
-                }
-            });
+            SetDatetime();
             context.SaveChanges();
         }
 
         public async Task CommitAsync()
         {
-            //context.ChangeTracker.Entries().ToList().ForEach(e =>
-            //{
-            //    if (e.State == EntityState.Added)
-            //    {
-            //        PropertyReflection.SetValue(e, "CreatedDate", DateTime.Now);
-            //    }
-
-            //    if (e.State == EntityState.Modified)
-            //    {
-            //        PropertyReflection.SetValue(e, "UpdatedDate", DateTime.Now);
-            //    }
-            //});
+            SetDatetime();
             await context.SaveChangesAsync();
+        }
+
+        private void SetDatetime()
+        {
+            context.ChangeTracker.Entries().ToList().ForEach(e =>
+            {
+                if (e.State == EntityState.Added)
+                {
+                    e.Property("CreatedDate").CurrentValue = DateTime.Now;
+                }
+
+                if (e.State == EntityState.Modified)
+                {
+                    e.Property("UpdatedDate").CurrentValue = DateTime.Now;
+                }
+            });
         }
 
         public void Dispose()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SampleEntDev.Core.Dtos.Schemas.Management
 {
-    public class RoleDto
+    public class RoleDto : IDto
     {
         public RoleDto()
         {
