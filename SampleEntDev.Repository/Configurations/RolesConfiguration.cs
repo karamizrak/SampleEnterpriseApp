@@ -19,7 +19,7 @@ namespace SampleEntDev.Repository.Configurations
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
-                .HasDefaultValueSql("nextval('management.\"Roles_id_seq\"'::regclass)");
+                ;
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")

@@ -18,8 +18,7 @@ namespace SampleEntDev.Repository.Configurations
             entity.ToTable("menu", "management");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .HasDefaultValueSql("nextval('management.\"Menu_id_seq\"'::regclass)");
+                .HasColumnName("id");
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")

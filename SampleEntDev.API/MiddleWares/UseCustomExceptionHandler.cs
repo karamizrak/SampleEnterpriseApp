@@ -32,7 +32,7 @@ namespace SampleEntDev.API.MiddleWares
                     _ => 500
                 };
             contex.Response.StatusCode = statusCode;
-            var response = GResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.Message);
+            var response = GResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.GetBaseException().Message);
 
             logger.LogError(String.Format("HttpRequest: {0}",
                 exceptionFeature.Error.StackTrace.ToString()));

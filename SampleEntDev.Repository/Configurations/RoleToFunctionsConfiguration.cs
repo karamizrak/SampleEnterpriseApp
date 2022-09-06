@@ -18,8 +18,7 @@ namespace SampleEntDev.Repository.Configurations
             entity.ToTable("role_to_functions", "management");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .HasDefaultValueSql("nextval('management.\"RoleToFunctions_id_seq\"'::regclass)");
+                .HasColumnName("id");
 
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")

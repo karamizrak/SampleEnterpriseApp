@@ -11,7 +11,7 @@ namespace SampleEntDev.Core.Repositories.Schemas.Management
 {
     public interface IUserRepository : IGenericRepository<Users>
     {
-        Task<Users> FindByEmailandPassword(string email, string password);
+        Task<Users?> FindByEmailandPassword(string email, string password);
         Task SaveRefreshToken(int userId, string refreshToken, DateTime refreshTokenExpiration);
         Task<Users> GetUserByRefreshToken(string refreshToken);
         Task RemoveRefreshToken(int userId);

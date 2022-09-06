@@ -18,11 +18,10 @@ namespace SampleEntDev.Repository.Repositories.Schemas.Management
         {
         }
 
-        public async Task<Users> FindByEmailandPassword(string email, string password)
+        public async Task<Users?> FindByEmailandPassword(string email, string password)
         {
             var cryptPass = SHA1.Create(password);
-            // ReSharper disable once ComplexConditionExpression
-            var user = await context.Users.FirstOrDefaultAsync(x => x.EMail== email && x.Password== password);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.EMail== email);
             return user;
         }
 

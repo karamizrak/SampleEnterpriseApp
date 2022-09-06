@@ -1,3 +1,4 @@
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
@@ -71,7 +72,32 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new RepoServiceModule()));
 
+LdapConfig ldapConfig = builder.Configuration.GetSection("AD").Get<LdapConfig>();
+builder.Services.Configure<LdapConfig>
+(
+    c =>
+    {
+        c.Zone = ldapConfig.Zone;
+        c.Port = ldapConfig.Port;
+        c.Path = ldapConfig.Path;
+        c.Domain = ldapConfig.Domain;
+        c.LDAPserver = $"{c.Domain}.{c.Zone}";
+        c.LDAPQueryBase = $"DC={c.Domain},DC={c.Zone}";
+        c.OUGroup = new StringBuilder().Append($"OU={ldapConfig.OUGroup},").Append($"CN=Users,{c.LDAPQueryBase}").ToString();
+
+        //OU=gsb,DC=gsb,DC=local
+    }
+);
+
+
+
+
+
+
+
 builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+
+
 TokenOptions tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(x =>
 {
@@ -100,7 +126,7 @@ builder.Services.AddCors(opts =>
     opts.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
 builder.Logging.ClearProviders();
-builder.Logging.AddSeriLogx(connStr);
+//builder.Logging.AddSeriLogx(connStr);
 
 
 var app = builder.Build();

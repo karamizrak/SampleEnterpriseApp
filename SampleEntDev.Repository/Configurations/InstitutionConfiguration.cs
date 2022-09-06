@@ -18,8 +18,7 @@ namespace SampleEntDev.Repository.Configurations
             entity.ToTable("institution", "global");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .HasDefaultValueSql("nextval('global.\"Institution_id_seq\"'::regclass)");
+                .HasColumnName("id");
 
             entity.Property(e => e.Address)
                 .HasColumnType("character varying")

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SampleEntDev.Core.Entities.Schemas
 {
@@ -17,7 +18,7 @@ namespace SampleEntDev.Core.Entities.Schemas
         public int Id { get; set; }
         public bool? IsDeleted { get; set; }
         public string? LastModifier { get; set; }
-
+        public string Test { get; set; }
         public virtual ICollection<Product> Product { get; set; }
     }
 }
