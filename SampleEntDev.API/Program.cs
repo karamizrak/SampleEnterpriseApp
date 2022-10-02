@@ -126,7 +126,7 @@ builder.Services.AddCors(opts =>
     opts.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
 builder.Logging.ClearProviders();
-//builder.Logging.AddSeriLogx(connStr);
+builder.Logging.AddSeriLogx(connStr);
 
 
 var app = builder.Build();
