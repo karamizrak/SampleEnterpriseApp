@@ -83,16 +83,12 @@ builder.Services.Configure<LdapConfig>
         c.Domain = ldapConfig.Domain;
         c.LDAPserver = $"{c.Domain}.{c.Zone}";
         c.LDAPQueryBase = $"DC={c.Domain},DC={c.Zone}";
-        c.OUGroup = new StringBuilder().Append($"OU={ldapConfig.OUGroup},").Append($"CN=Users,{c.LDAPQueryBase}").ToString();
+        c.OUGroup = new StringBuilder().Append($"OU={ldapConfig.OUGroup},").Append($"CN=Users,{c.LDAPQueryBase}")
+            .ToString();
 
         //OU=gsb,DC=gsb,DC=local
     }
 );
-
-
-
-
-
 
 
 builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("TokenOptions"));
