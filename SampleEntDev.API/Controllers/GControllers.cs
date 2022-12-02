@@ -24,6 +24,7 @@ namespace SampleEntDev.API.Controllers
 
         // GET: api/<GController>
         [HttpGet]
+        
         public async Task<IActionResult> Get()
         {
             var p = await _service.GetAllAsync();
@@ -59,7 +60,7 @@ namespace SampleEntDev.API.Controllers
 
         // DELETE api/<GController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> RemoveAsync(int id)
         {
             var p = await _service.GetByIdAsync(id);
             await _service.RemoveAsync(p);

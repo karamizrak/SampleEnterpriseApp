@@ -68,11 +68,6 @@ namespace SampleEntDev.Repository.Repositories
             return (T)entity;
         }
 
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
-        {
-            return dbSet.Where(expression);
-        }
-
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
         {
             return dbSet.AsNoTracking().Where(expression);
@@ -83,41 +78,49 @@ namespace SampleEntDev.Repository.Repositories
             return context.Set<T>().AsQueryable();
         }
 
-        public IEnumerable<T> Where(Expression<Func<T, bool>> filterPredicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate = null,
-            string navigationProperties = "",
-            int? page = null,
-            int? pageSize = null)
+
+
+        public IQueryable<T> WhereIq(Expression<Func<T, bool>> expression)
         {
-            IQueryable<T> query = context.Set<T>();
+            return dbSet.Where(expression);
+        }
 
-            if (filterPredicate != null)
+        public IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate)
+        {
+
+            IQueryable<T> query = this.WhereIq(filterPredicate);
+            query = orderByPredicate(query);
+            return query;
+        }
+
+        public IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate, string navigationProperties)
+        {
+            var query = this.WhereIq(filterPredicate, orderByPredicate);
+
+            query = orderByPredicate(query);
+
+            foreach (string navigationPropertyPath in navigationProperties.Split(new[] { ',' },
+                         StringSplitOptions.RemoveEmptyEntries))
             {
-                query = query.Where(filterPredicate);
+                query = query.Include(navigationPropertyPath);
             }
 
-            if (orderByPredicate != null)
+            return query;
+        }
+
+        public IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate, string navigationProperties, int page, int pageSize)
+        {
+            var query = this.WhereIq(filterPredicate, orderByPredicate, navigationProperties);
+            foreach (string navigationPropertyPath in navigationProperties.Split(new[] { ',' },
+                         StringSplitOptions.RemoveEmptyEntries))
             {
-                query = orderByPredicate(query);
+                query = query.Include(navigationPropertyPath);
             }
 
-            if (navigationProperties != null)
-            {
-                foreach (string navigationPropertyPath in navigationProperties.Split(new[] { ',' },
-                             StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(navigationPropertyPath);
-                }
-            }
 
-            if (page != null && pageSize != null)
-            {
-                query = query
-                    .Skip((page.Value - 1) * pageSize.Value)
-                    .Take(pageSize.Value);
-            }
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
-            return query.ToList();
+            return query;
         }
     }
 }

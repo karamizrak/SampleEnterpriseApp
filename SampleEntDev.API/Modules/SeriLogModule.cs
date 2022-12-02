@@ -47,7 +47,7 @@ namespace SampleEntDev.API.Modules
                 //})
                 .MinimumLevel.Verbose()
                 .CreateLogger();
-
+            
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
             if (dispose)
