@@ -12,19 +12,19 @@ namespace SampleEntDev.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<ProductWithCategoryDto>> GetProductWithCategoryAsync()
+        public async Task<List<ProductWithCategoryDto>?> GetProductWithCategoryAsync()
         {
             var response = await _httpClient.GetFromJsonAsync<GResponseDto<List<ProductWithCategoryDto>>>("ecommerce/products/GetProductsWithCategory");
-            return response.Data;
+            return response?.Data;
         }
 
-        public async Task<ProductDto> Save(ProductDto productDto)
+        public async Task<ProductDto?> Save(ProductDto productDto)
         {
             var response = await _httpClient.PostAsJsonAsync("ecommerce/product", productDto);
             if (!response.IsSuccessStatusCode) return null;
 
             var responseBody = await response.Content.ReadFromJsonAsync<GResponseDto<ProductDto>>();
-            return responseBody.Data;
+            return responseBody?.Data;
         }
         public async Task<bool> Update(ProductDto productDto)
         {
@@ -38,10 +38,10 @@ namespace SampleEntDev.Web.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<ProductDto> GetBydId(int id)
+        public async Task<ProductDto?> GetBydId(int id)
         {
             var response = await _httpClient.GetFromJsonAsync<GResponseDto<ProductDto>>($"ecommerce/product/{id}");
-            return response.Data;
+            return response?.Data;
         }
 
     }

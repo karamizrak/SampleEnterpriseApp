@@ -20,14 +20,15 @@ namespace SampleEntDev.Repository.Repositories.Schemas.Management
 
         public async Task<Users?> FindByEmailandPassword(string email, string password)
         {
-            var cryptPass = SHA1.Create(password);
+            var cryptPass = SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(password));
+            
             var user = await context.Users.FirstOrDefaultAsync(x => x.EMail== email);
             return user;
         }
 
-        public Task<Users> GetUserByRefreshToken(string refreshToken)
+        public async Task<Users?> GetUserByRefreshToken(string refreshToken)
         {
-            var user = context.Users.FirstOrDefaultAsync(x => x.RefreshToken == refreshToken);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.RefreshToken == refreshToken);
             return user;
         }
 

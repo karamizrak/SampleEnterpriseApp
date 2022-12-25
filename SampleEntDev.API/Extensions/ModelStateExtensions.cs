@@ -6,7 +6,9 @@ namespace SampleEntDev.API.Extensions
     {
         public static List<string> GetErrorMesages(this ModelStateDictionary dictionary)
         {
+#pragma warning disable CS8602
             return dictionary.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+#pragma warning restore CS8602
         }
     }
 }

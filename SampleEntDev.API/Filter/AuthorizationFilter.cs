@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Services.Schemas.Management;
+#pragma warning disable CS0162
 
 namespace SampleEntDev.API.Filter
 {

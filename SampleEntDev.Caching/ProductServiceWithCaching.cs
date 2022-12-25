@@ -55,24 +55,24 @@ namespace SampleEntDev.Caching
 
         public Task<bool> AnyAsync(Expression<Func<Product, bool>> expression)
         {
-            return Task.FromResult(_memoryCache.Get<IEnumerable<Product>>(CacheProductKey).Any(expression.Compile()));
+            return Task.FromResult((_memoryCache.Get<IEnumerable<Product>>(CacheProductKey) ?? throw new InvalidOperationException("AnyAsync(Expression<Func<Product, bool>> expression)")).Any(expression.Compile()));
         }
 
         public Task<IEnumerable<Product>> GetAllAsync()
         {
-            return Task.FromResult(_memoryCache.Get<IEnumerable<Product>>(CacheProductKey));
+            return Task.FromResult((_memoryCache.Get<IEnumerable<Product>>(CacheProductKey) ?? throw new InvalidOperationException("Task<IEnumerable<Product>> GetAllAsync()")));
         }
 
         public Task<IEnumerable<Product>> GetAllAsync(Expression<Func<Product, bool>> expression)
         {
-            return Task.FromResult(_memoryCache.Get<IEnumerable<Product>>(CacheProductKey).Where(expression.Compile()));
+            return Task.FromResult((_memoryCache.Get<IEnumerable<Product>>(CacheProductKey) ?? throw new InvalidOperationException("GetAllAsync(Expression<Func<Product, bool>> expression)")).Where(expression.Compile()));
         }
 
         public Task<Product> GetByIdAsync(int id)
         {
-            var p = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
+            var p = (_memoryCache.Get<List<Product>>(CacheProductKey) ?? throw new InvalidOperationException("GetByIdAsync(int id)")).FirstOrDefault(x => x.Id == id);
             if (p == null)
-                throw new NotFoundException($"{typeof(Product).Name} does not exist");
+                throw new NotFoundException($"{nameof(Product)} does not exist");
 
             return Task.FromResult(p);
         }
@@ -100,7 +100,7 @@ namespace SampleEntDev.Caching
 
         public IQueryable<Product> Where(Expression<Func<Product, bool>> expression)
         {
-            return _memoryCache.Get<List<Product>>(CacheProductKey).Where(expression.Compile()).AsQueryable();
+            return (_memoryCache.Get<List<Product>>(CacheProductKey) ?? throw new InvalidOperationException("Where(Expression<Func<Product, bool>> expression)")).Where(expression.Compile()).AsQueryable();
         }
 
 

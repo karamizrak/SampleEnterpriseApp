@@ -12,10 +12,11 @@ namespace SampleEntDev.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<CategoryDto>> GetAll()
+        public async Task<List<CategoryDto>?> GetAll()
         {
             var response = await _httpClient.GetFromJsonAsync<GResponseDto<List<CategoryDto>>>("ecommerce/category");
-            return response.Data;
+
+            return response?.Data;
         }
     }
 }

@@ -22,9 +22,10 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 // Add services to the container.
-
+#pragma warning disable CS0618
 builder.Services.AddControllers(opt => { opt.Filters.Add(new ValidateFilterAttribute()); })
     .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
+#pragma warning restore CS0618
 
 //Turned off the pattern filter that the "Fluent Validator" had returned.
 builder.Services.Configure<ApiBehaviorOptions>(opt => { opt.SuppressModelStateInvalidFilter = true; });
@@ -72,7 +73,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new RepoServiceModule()));
 
-LdapConfig ldapConfig = builder.Configuration.GetSection("AD").Get<LdapConfig>();
+LdapConfig ldapConfig = builder.Configuration.GetSection("AD").Get<LdapConfig>() ?? throw new InvalidOperationException("Ldap Configuration isn't reading!!!");
 builder.Services.Configure<LdapConfig>
 (
     c =>
@@ -85,8 +86,6 @@ builder.Services.Configure<LdapConfig>
         c.LDAPQueryBase = $"DC={c.Domain},DC={c.Zone}";
         c.OUGroup = new StringBuilder().Append($"OU={ldapConfig.OUGroup},").Append($"CN=Users,{c.LDAPQueryBase}")
             .ToString();
-
-        //OU=gsb,DC=gsb,DC=local
     }
 );
 
@@ -94,7 +93,7 @@ builder.Services.Configure<LdapConfig>
 builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 
 
-TokenOptions tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+TokenOptions tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>() ?? throw new InvalidOperationException("Token options isn't reading!!!");
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -122,7 +121,7 @@ builder.Services.AddCors(opts =>
     opts.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
 builder.Logging.ClearProviders();
-builder.Logging.AddSeriLogx(connStr);
+if (connStr != null) builder.Logging.AddSeriLogx(connStr);
 
 
 var app = builder.Build();

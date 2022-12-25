@@ -14,7 +14,7 @@ namespace SampleEntDev.API.Controllers
         }
 
 
-        protected TDefaultModel DefaultData
+        protected TDefaultModel? DefaultData
         {
             get
             {
@@ -29,7 +29,7 @@ namespace SampleEntDev.API.Controllers
             }
         }
 
-        [NonAction] //swagger bunu dışarı göstermemesi için
+        [NonAction] //swagger isn't seeing
         public IActionResult CreateActionResult<T>(GResponseDto<T> response) where T : class
         {
             if (response.StatusCode == 204)

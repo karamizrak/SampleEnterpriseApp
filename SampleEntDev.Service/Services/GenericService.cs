@@ -91,7 +91,7 @@ namespace SampleEntDev.Service.Services
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)
         {
-            return _repository.Where(expression);
+            return _repository.WhereIq(expression);
         }
 
         private void SetLastModifier(T entity)

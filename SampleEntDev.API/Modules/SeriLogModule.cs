@@ -57,7 +57,7 @@ namespace SampleEntDev.API.Modules
                         new SerilogLoggerProvider(loggerx, true)));
             else
                 builder.AddProvider((ILoggerProvider)new SerilogLoggerProvider(loggerx));
-            builder.AddFilter<SerilogLoggerProvider>((string)null, LogLevel.Trace);
+            builder.AddFilter<SerilogLoggerProvider>(null, LogLevel.Trace);
 
             return builder;
         }
