@@ -1,10 +1,8 @@
 ﻿using NpgsqlTypes;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.PostgreSQL;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SampleEntDev.API.Modules
 {
@@ -27,24 +25,15 @@ namespace SampleEntDev.API.Modules
             }
         };
 
-        public static ILoggingBuilder AddSeriLogx(this ILoggingBuilder builder, string connStr,
+        public static ILoggingBuilder AddSeriLog(this ILoggingBuilder builder, string connStr,
             bool dispose = false)
         {
             var loggerx = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .Enrich.WithProperty("Application", "Sample Enterprise Api")
+                .Enrich.WithProperty("Application", "Sample Enterprise Api2")
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
-                .WriteTo.PostgreSQL(connStr, "audit_logs", columnWriters, schemaName: "global",
-                    needAutoCreateTable: true)
-                //new ElasticsearchSinkOptions(
-                //    new Uri("http://localhost:9200/"))
-                //{
-                //    CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true),
-                //    AutoRegisterTemplate = true,
-                //    TemplateName = "serilog-events-template",
-                //    IndexFormat = "hesapkurdu-log-{0:yyyy.MM.dd}"
-                //})
+                .WriteTo.PostgreSQL(connStr, "audit_logs", columnWriters, schemaName: "global", needAutoCreateTable: true)
                 .MinimumLevel.Verbose()
                 .CreateLogger();
             

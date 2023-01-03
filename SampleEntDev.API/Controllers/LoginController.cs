@@ -19,6 +19,7 @@ namespace SampleEntDev.API.Controllers
         private readonly IAuthService _authenticationService;
 
         private readonly IUserService _userService;
+        
 
         public LoginController(IUserService userService, IAuthService authenticationService)
         {
@@ -35,7 +36,10 @@ namespace SampleEntDev.API.Controllers
             {
                 var user = _authenticationService.CreateAccessToken(loginDto.email, loginDto.password).Result;
                 if (user.StatusCode == 200)
+                {
+                    
                     return Ok(user);
+                }
                 else
                     return NotFound("Not found user.");
             }
