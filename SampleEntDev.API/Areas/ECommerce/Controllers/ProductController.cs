@@ -12,7 +12,7 @@ using SampleEntDev.Service.Services.Schemas.ECommerce;
 namespace SampleEntDev.API.Areas.ECommerce.Controllers
 {
     [Area("ECommerce")]
-    [SkipAuthorization]
+
     public class ProductController : BaseController<ProductDto>
     {
         private readonly IMapper _mapper;

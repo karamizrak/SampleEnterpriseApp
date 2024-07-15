@@ -13,8 +13,6 @@ namespace SampleEntDev.Core.Dtos.Schemas.Management
         public string Name { get; set; } = null!;
         public string Surename { get; set; } = null!;
         public string EMail { get; set; } = null!;
-
-        [System.Text.Json.Serialization.JsonIgnore]
         public string Password { get; set; } = null!;
 
         public DateTime? LastLoginDatetime { get; set; }

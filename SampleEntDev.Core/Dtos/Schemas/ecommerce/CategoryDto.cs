@@ -13,5 +13,6 @@ namespace SampleEntDev.Core.Dtos.Schemas.ECommerce
         public string Name { get; set; }
         [Display(Name = "Description")]
         public string Description { get; set; }
+        public  string Test { get; set; }
     }
 }

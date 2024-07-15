@@ -8,6 +8,7 @@ using SampleEntDev.Core.Dtos;
 using SampleEntDev.Core.Dtos.Schemas.ECommerce;
 using SampleEntDev.Core.Entities.Schemas;
 using SampleEntDev.Core.Services.Schemas.ECommerce;
+using SampleEntDev.Service.Services.Schemas.ECommerce;
 
 namespace SampleEntDev.API.Areas.ECommerce.Controllers
 {
@@ -28,7 +29,6 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         [SkipAuthorization]
         public async Task<IActionResult> GetAll()
         {
-            throw new Exception("Olmadı");
             var cat = await _categoryService.GetAllAsync();
             var catDto = _mapper.Map<List<CategoryDto>>(cat.ToList());
             return CreateActionResult(GResponseDto<List<CategoryDto>>.Success(200, catDto));
@@ -41,13 +41,22 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         }
 
         //[ServiceFilter(typeof(GetByIdFilter<Category, CategoryDto>))]
-        // GET api/<ProductController>/5
+        // GET api/<CategoryController>/5
         [HttpGet]
         [SkipAuthorization]
         public async Task<IActionResult> GetAsync(int id)
         {
             throw new Exception("Olmadı2");
             return await Task.FromResult(CreateActionResult(GResponseDto<CategoryDto>.Success(200, DefaultData)));
+        }
+
+        // POST api/<CategoryController>
+        [HttpPost]
+        public async Task<IActionResult> Post(CategoryDto pDto)
+        {
+            var p = await _categoryService.AddAsync(_mapper.Map<Category>(pDto));
+            var savedCategory = _mapper.Map<CategoryDto>(p);
+            return CreateActionResult(GResponseDto<CategoryDto>.Success(201, savedCategory));
         }
     }
 }
