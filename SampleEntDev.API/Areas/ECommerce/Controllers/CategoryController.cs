@@ -46,7 +46,7 @@ namespace SampleEntDev.API.Areas.ECommerce.Controllers
         [SkipAuthorization]
         public async Task<IActionResult> GetAsync(int id)
         {
-            throw new Exception("Olmadı2");
+           // throw new Exception("Olmadı2");
             return await Task.FromResult(CreateActionResult(GResponseDto<CategoryDto>.Success(200, DefaultData)));
         }
 

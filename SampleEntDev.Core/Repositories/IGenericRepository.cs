@@ -5,7 +5,6 @@ namespace SampleEntDev.Core.Repositories
     public interface IGenericRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
-        IQueryable<T> Where(Expression<Func<T, bool>> expression);
         Task<T> AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
         IQueryable<T> GetAll();
@@ -16,10 +15,12 @@ namespace SampleEntDev.Core.Repositories
 
         IQueryable<T> Query();
 
-        IEnumerable<T> Where(Expression<Func<T, bool>> filterPredicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate = null,
-            string navigationProperties = "",
-            int? page = null,
-            int? pageSize = null);
+        IQueryable<T> WhereIq(Expression<Func<T, bool>> expression);
+
+        IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate);
+
+        IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate, string navigationProperties);
+
+        IQueryable<T> WhereIq(Expression<Func<T, bool>> filterPredicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderByPredicate, string navigationProperties, int page, int pageSize);
     }
 }

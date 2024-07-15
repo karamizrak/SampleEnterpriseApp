@@ -13,7 +13,7 @@ namespace SampleEntDev.Core.Dtos
         [JsonIgnore] public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
 
-        public static GResponseDto<T> Success(int statusCode, T data)
+        public static GResponseDto<T> Success(int statusCode, T? data)
         {
             return new GResponseDto<T> { Data = data, StatusCode = statusCode };
         }
@@ -28,9 +28,9 @@ namespace SampleEntDev.Core.Dtos
             return new GResponseDto<T> { StatusCode = statusCode, Errors = errors };
         }
 
-        public static GResponseDto<T> Fail(int statusCode, string error)
+        public static GResponseDto<T> Fail(int statusCode, string? error)
         {
-            return new GResponseDto<T> { StatusCode = statusCode, Errors = new List<string> { error } };
+            return new GResponseDto<T> { StatusCode = statusCode, Errors = new List<string> { error??"" } };
         }
     }
 }

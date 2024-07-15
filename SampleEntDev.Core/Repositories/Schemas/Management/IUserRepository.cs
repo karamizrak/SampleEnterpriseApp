@@ -13,7 +13,7 @@ namespace SampleEntDev.Core.Repositories.Schemas.Management
     {
         Task<Users?> FindByEmailandPassword(string email, string password);
         Task SaveRefreshToken(int userId, string refreshToken, DateTime refreshTokenExpiration);
-        Task<Users> GetUserByRefreshToken(string refreshToken);
+        Task<Users?> GetUserByRefreshToken(string refreshToken);
         Task RemoveRefreshToken(int userId);
     }
 }

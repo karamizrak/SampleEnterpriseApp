@@ -36,7 +36,7 @@ namespace SampleEntDev.API.Modules
             var repoAssembly = Assembly.GetAssembly(typeof(AppDbContext));
             var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
 
-            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly)
+            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly ?? throw new InvalidOperationException("Map profile repository assembly isn't reading''"), serviceAssembly ?? throw new InvalidOperationException("Map profile service assembly isn't reading!!!"))
                 .Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             //InstancePerLifetimeScope => AddScope 

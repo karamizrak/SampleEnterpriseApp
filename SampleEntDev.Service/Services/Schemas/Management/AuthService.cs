@@ -29,20 +29,23 @@ namespace SampleEntDev.Service.Services.Schemas.Management
         public async Task<GResponseDto<AccessToken>> CreateAccessToken(string email, string password)
         {
             var isValidateUser = ValidateUser(_ldapConfig, email, password);
-            if (isValidateUser)
-            {
-                var user = await _userService.FindByEmailandPassword(email, password);
-                if (user != null && user.StatusCode == 200)
-                {
-                    var accessToken = _tokenHandler.CreateAccessToken(user.Data);
-                    await _userService.SaveRefreshToken(user.Data.Id, accessToken.RefreshToken,
-                        DateTime.Now.AddSeconds(_tokenOptions.RefreshTokenExpiration));
-                    return GResponseDto<AccessToken>.Success(200, accessToken);
-                }
-                return GResponseDto<AccessToken>.Fail(404, "Not found user. Check the information you have entered.");
-            }
+            if (!isValidateUser) return GResponseDto<AccessToken>.Fail(404, "Invalid user name or password.");
 
-            return GResponseDto<AccessToken>.Fail(404, "Invalid user name or password.");
+            var user = await _userService.FindByEmailandPassword(email, password);
+            if (user.StatusCode != 200)
+                return GResponseDto<AccessToken>.Fail(404,
+                    "Not found user. Check the information you have entered.");
+
+
+            if (user.Data == null)
+                return GResponseDto<AccessToken>.Fail(404,
+                    "Not found user. Check the information you have entered.");
+
+
+            var accessToken = _tokenHandler.CreateAccessToken(user.Data);
+            await _userService.SaveRefreshToken(user.Data.Id, accessToken.RefreshToken,
+                DateTime.Now.AddSeconds(_tokenOptions.RefreshTokenExpiration));
+            return GResponseDto<AccessToken>.Success(200, accessToken);
 
         }
 
@@ -74,7 +77,7 @@ namespace SampleEntDev.Service.Services.Schemas.Management
             var userResponse = await _userService.GetUserByRefreshToken(refreshToken);
             if (userResponse.StatusCode == 200)
             {
-                await _userService.RemoveRefreshToken(userResponse.Data.Id);
+                if (userResponse.Data != null) await _userService.RemoveRefreshToken(userResponse.Data.Id);
                 return GResponseDto<NoContentDto>.Success(204);
             }
             else

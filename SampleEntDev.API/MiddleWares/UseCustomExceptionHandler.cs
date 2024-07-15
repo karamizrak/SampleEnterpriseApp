@@ -24,7 +24,7 @@ namespace SampleEntDev.API.MiddleWares
         {
             contex.Response.ContentType = "aplication/json";
             var exceptionFeature = contex.Features.Get<IExceptionHandlerFeature>();
-            var statusCode = exceptionFeature.Error
+            var statusCode = exceptionFeature?.Error
                 switch
                 {
                     ClientSideException => 400,
@@ -32,10 +32,10 @@ namespace SampleEntDev.API.MiddleWares
                     _ => 500
                 };
             contex.Response.StatusCode = statusCode;
-            var response = GResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature.Error.GetBaseException().Message);
+            var response = GResponseDto<NoContentDto>.Fail(statusCode, exceptionFeature?.Error.GetBaseException().Message);
 
             logger.LogError(String.Format("HttpRequest: {0}",
-                exceptionFeature.Error.StackTrace.ToString()));
+                exceptionFeature?.Error?.StackTrace));
             return response;
         }
     }

@@ -4,7 +4,7 @@ namespace SampleEntDev.Web.HttpClients
 {
     public static class ECommerceHttpClient
     {
-        public static IServiceCollection AddECommerceHttpClient(this IServiceCollection Services,string baseUrl)
+        public static IServiceCollection AddECommerceHttpClient(this IServiceCollection Services,string? baseUrl)
         {
             Services.AddHttpClient<ProductApiService>(opt =>
             {
